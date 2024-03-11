@@ -1,0 +1,20 @@
+{
+  "editor.rulers": [
+    80
+  ],
+  "editor.formatOnSave": true,
+  "pylint.interpreter": [
+    ".venv/Scripts/python.exe"
+  ],
+  "editor.renderWhitespace": "all",
+  "[python]": {
+    "editor.defaultFormatter": "ms-python.autopep8",
+  },
+  "[json]": {
+    "editor.defaultFormatter": "vscode.json-language-features",
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace"
+  },
+}
