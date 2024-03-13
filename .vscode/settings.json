@@ -2,10 +2,8 @@
   "editor.rulers": [
     80
   ],
+  "python.defaultInterpreterPath": "/usr/bin/python",
   "editor.formatOnSave": true,
-  "pylint.interpreter": [
-    ".venv/Scripts/python.exe"
-  ],
   "editor.renderWhitespace": "all",
   "[python]": {
     "editor.defaultFormatter": "ms-python.autopep8",
