@@ -39,6 +39,6 @@ print("before scatter")
 
 fig.add_scattermapbox(lat=gdf.Latitude, lon=gdf.Longitude, hoverinfo='text',
                       text=gdf.Nom, mode='markers', marker=dict(size=8, color='red'))
-fig.add_densitymapbox(lat=gdf.Latitude, lon=gdf.Longitude, radius=40)
+# fig.add_densitymapbox(lat=gdf.Latitude, lon=gdf.Longitude, radius=40)
 
 fig.show()
