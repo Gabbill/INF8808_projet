@@ -8,7 +8,9 @@
 
 # Assets
 
-1. Télécharger les fichiers comptage_velo_YYYY.csv et localisation_des_compteurs.csv [ici](https://www.donneesquebec.ca/recherche/dataset/vmtl-velos-comptage), puis le fichier et [reseau_cyclable.geojson](https://www.donneesquebec.ca/recherche/dataset/vmtl-pistes-cyclables).
+1. Télécharger les fichiers comptage_velo_YYYY.csv de 2019 à 2024 et localisation_des_compteurs.csv [ici](https://www.donneesquebec.ca/recherche/dataset/vmtl-velos-comptage), puis le fichier [reseau_cyclable.geojson](https://www.donneesquebec.ca/recherche/dataset/vmtl-pistes-cyclables).
 
-2. Les placés dans le dossier assets
-3. Les renommés comme ceci: ![](./assets/csv_assets.png)
+2. Télécharger les fichiers des conditions météorologiques de 2019 à 2024 à [ce lien-ci](https://climate.weather.gc.ca/climate_data/daily_data_e.html?StationID=51157&timeframe=2&StartYear=1840&EndYear=2024&Day=16&Year=2019&Month=1)
+
+3. Les placer dans le dossier assets
+4. Les renommer comme ceci: ![](./assets/csv_assets.png)
