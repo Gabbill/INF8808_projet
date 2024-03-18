@@ -7,16 +7,15 @@ import pandas as pd
 
 
 def get_compteurs_dataframe():
-    list_compteurs = [pd.read_csv(f'../../assets/comptage_velo_{year}.csv') for year in range(2019, 2023)]
-    list_compteurs = [compteurs.groupby(['id_compteur', 'longitude', 'latitude'])['nb_passages'].sum().reset_index() for compteurs in list_compteurs]
-    df_compteurs = pd.concat(list_compteurs, ignore_index=True)
+    compteurs = pd.read_csv(f'../../assets/comptage_velo_2022.csv')
+    compteurs = compteurs.groupby(['id_compteur', 'longitude', 'latitude'])['nb_passages'].sum().reset_index()
     
     localisation_compteurs = localisation_data[['ID', 'Annee_implante']].copy()
     localisation_compteurs.rename(columns={'ID': 'id_compteur'}, inplace=True)
     localisation_compteurs.loc[localisation_compteurs['Annee_implante'] < 2019, 'Annee_implante'] = 2019
     localisation_compteurs['Annee_implante'] = localisation_compteurs['Annee_implante'].astype(str)
     
-    return pd.merge(df_compteurs, localisation_compteurs, on='id_compteur', how='inner')
+    return pd.merge(compteurs, localisation_compteurs, on='id_compteur', how='inner')
 
 
 def pistes_cyclables():
@@ -46,14 +45,14 @@ def pistes_cyclables():
     return fig
     
 
-def add_compteurs_2019(fig: go.Figure):
+def add_compteurs(fig: go.Figure):
     compteurs = px.scatter_mapbox(
         compteurs_dataframe,
         lat='latitude',
         lon='longitude',
         size='nb_passages',
         color='Annee_implante',
-        color_discrete_sequence=px.colors.qualitative.Set1
+        color_discrete_sequence=['red', 'blue', 'purple', 'orange']
     )
     
     compteurs.update_traces(
@@ -64,11 +63,11 @@ def add_compteurs_2019(fig: go.Figure):
     fig.add_traces(list(compteurs.select_traces()))
     
 
-geo_df_cycl = gpd.read_file("../../assets/reseau_cyclable.geojson")
+geo_df_cycl = gpd.read_file('../../assets/reseau_cyclable.geojson')
 localisation_data = pd.read_csv('../../assets/localisation_des_compteurs_velo.csv')
 compteurs_dataframe = get_compteurs_dataframe()
 
 fig = pistes_cyclables()
-add_compteurs_2019(fig)
+add_compteurs(fig)
 
 fig.show()
