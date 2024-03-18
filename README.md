@@ -13,4 +13,4 @@
 2. Télécharger les fichiers des conditions météorologiques de 2019 à 2024 à [ce lien-ci](https://climate.weather.gc.ca/climate_data/daily_data_e.html?StationID=51157&timeframe=2&StartYear=1840&EndYear=2024&Day=16&Year=2019&Month=1)
 
 3. Les placer dans le dossier assets
-4. Les renommer comme ceci: ![](./assets/csv_assets.png)
+4. Les renommer comme ceci: ![](src/assets/csv_assets.png)

@@ -7,7 +7,7 @@ import pandas as pd
 
 
 def get_compteurs_dataframe():
-    compteurs = pd.read_csv(f'../../assets/comptage_velo_2022.csv')
+    compteurs = pd.read_csv(f'assets/comptage_velo_2022.csv')
     compteurs = compteurs.groupby(['id_compteur', 'longitude', 'latitude'])['nb_passages'].sum().reset_index()
     
     localisation_compteurs = localisation_data[['ID', 'Annee_implante']].copy()
@@ -63,8 +63,8 @@ def add_compteurs(fig: go.Figure):
     fig.add_traces(list(compteurs.select_traces()))
     
 
-geo_df_cycl = gpd.read_file('../../assets/reseau_cyclable.geojson')
-localisation_data = pd.read_csv('../../assets/localisation_des_compteurs_velo.csv')
+geo_df_cycl = gpd.read_file('assets/reseau_cyclable.geojson')
+localisation_data = pd.read_csv('assets/localisation_des_compteurs_velo.csv')
 compteurs_dataframe = get_compteurs_dataframe()
 
 fig = pistes_cyclables()

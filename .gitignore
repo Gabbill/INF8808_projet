@@ -1,4 +1,4 @@
 /.venv/
 *.zip
-/assets/*.csv
-/assets/*.geojson
+src/assets/*.csv
+src/assets/*.geojson

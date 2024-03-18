@@ -4,8 +4,8 @@ import plotly.graph_objects as go
 
 
 def get_dataframe():
-    list_compteurs = [pd.read_csv(f'../../assets/comptage_velo_{year}.csv') for year in range(2019, 2025)]
-    list_climate = [pd.read_csv(f'../../assets/en_climate_daily_QC_7025251_{year}_P1D.csv')  for year in range(2019, 2025)]
+    list_compteurs = [pd.read_csv(f'assets/comptage_velo_{year}.csv') for year in range(2019, 2025)]
+    list_climate = [pd.read_csv(f'assets/en_climate_daily_QC_7025251_{year}_P1D.csv')  for year in range(2019, 2025)]
 
     # Compteurs communs aux années
     df_id_compteurs = [set(df['id_compteur'].unique()) for df in list_compteurs]
