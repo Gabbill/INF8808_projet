@@ -16,6 +16,15 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 
 import pandas as pd
+import preprocess
+
+
+bike_counts_data_list = preprocess.load_bike_counts_data_list()
+bike_counts_df = preprocess.get_bike_counts_df(bike_counts_data_list)
+
+daily_bike_count = preprocess.get_daily_bike_count(bike_counts_df)
+yearly_counters_count = preprocess.get_yearly_counters_count(bike_counts_df)
+daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df)
 
 
 app = dash.Dash(__name__)
