@@ -71,8 +71,6 @@ def year_heatmap(year_df, fig, year_index):
     add_month_separators(year_heatmap, year_df, week_days, week_numbers)
     add_year_heatmap(fig, year_heatmap, year_index)
 
-    return fig
-
 
 def translate_date(date_string):
     for eng_month, fr_month in MONTH_NAMES.items():
@@ -143,7 +141,7 @@ def update_layout(fig, fig_height):
             autorange='reversed',
             fixedrange=True,
         ),
-        font=dict(size=10, color='#9e9e9e'),
+        font=dict(size=10, color='#757575'),
         plot_bgcolor=('#fff'),
         margin=dict(t=20, b=20),
         showlegend=False,
