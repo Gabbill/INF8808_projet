@@ -2,16 +2,29 @@
 
 import numpy as np
 import preprocess
+import hover_template
 import plotly.graph_objects as go
 
 from plotly.subplots import make_subplots
 
 YEARS = [2019, 2020, 2021, 2022, 2023]
-MONTH_NAMES = ['Janvier', 'Février', 'Mars', 'Avril', 'Mai', 'Juin',
-               'Juillet', 'Août', 'Septembre', 'Octobre', 'Novembre', 'Décembre']
 WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
                    'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MONTH_POSITIONS = np.linspace(1.5, 50, 12)
+MONTH_NAMES = {
+    'January': 'janvier',
+    'February': 'février',
+    'March': 'mars',
+    'April': 'avril',
+    'May': 'mai',
+    'June': 'juin',
+    'July': 'juillet',
+    'August': 'août',
+    'September': 'septembre',
+    'October': 'octobre',
+    'November': 'novembre',
+    'December': 'décembre'
+}
 
 
 def heatmap(df):
@@ -50,6 +63,8 @@ def year_heatmap(year_df, fig, year_index):
             ygap=1,
             showscale=False,
             colorscale='orrd',
+            customdata=year_df['date'].dt.strftime(
+                '%d %B %Y').apply(translate_date),
         )
     ]
 
@@ -57,6 +72,13 @@ def year_heatmap(year_df, fig, year_index):
     add_year_heatmap(fig, year_heatmap, year_index)
 
     return fig
+
+
+def translate_date(date_string):
+    for eng_month, fr_month in MONTH_NAMES.items():
+        if eng_month in date_string:
+            return date_string.replace(eng_month, fr_month)
+    return date_string
 
 
 def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
@@ -100,13 +122,14 @@ def add_color_scale(fig, min_value, max_value):
 
 
 def update_layout(fig, fig_height):
+    french_months = [month.capitalize() for month in MONTH_NAMES.values()]
     layout = go.Layout(
         xaxis=dict(
             showline=False,
             showgrid=False,
             zeroline=False,
             tickmode='array',
-            ticktext=MONTH_NAMES,
+            ticktext=french_months,
             tickvals=MONTH_POSITIONS,
             fixedrange=True,
         ),
@@ -130,3 +153,13 @@ def update_layout(fig, fig_height):
     fig.update_layout(layout)
     fig.update_xaxes(layout['xaxis'])
     fig.update_yaxes(layout['yaxis'])
+
+
+# TODO :  À ENLEVER
+bike_counts_data_list = preprocess.load_bike_counts_data_list()
+bike_counts_df = preprocess.get_bike_counts_df(bike_counts_data_list)
+
+daily_bike_count = preprocess.get_daily_bike_count(bike_counts_df)
+
+fig = heatmap(daily_bike_count)
+fig.show()
