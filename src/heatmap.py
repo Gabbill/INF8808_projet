@@ -73,23 +73,14 @@ def year_heatmap(year_df, fig, year_index):
 
 
 def get_hover_info(year_df, week_days):
-    nb_squares = 371
-    hover_info = []
-
     year_df['formatted_date'] = year_df['date'].dt.strftime(
         '%d %B %Y').apply(translate_date)
 
-    for index, row in year_df.iterrows():
-        hover_info.append(heatmap_hover_template(
+    return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
             row['formatted_date'],
             row['nb_passages']
-        ))
-
-    hover_info = [''] * week_days[0] + hover_info
-    hover_info += [''] * (nb_squares - len(hover_info))
-
-    return hover_info
+            ) for index, row in year_df.iterrows()]
 
 
 def translate_date(date_string):
