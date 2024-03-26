@@ -2,10 +2,10 @@
 
 import numpy as np
 import preprocess
-import hover_template
 import plotly.graph_objects as go
 
 from plotly.subplots import make_subplots
+from hover_template import heatmap_hover_template
 
 YEARS = [2019, 2020, 2021, 2022, 2023]
 WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
@@ -39,7 +39,7 @@ def heatmap(df):
     )
 
     for year_index, year in enumerate(YEARS):
-        year_df = df.loc[df['date'].dt.year == year]
+        year_df = df.loc[df['date'].dt.year == year].reset_index()
         year_heatmap(year_df, fig, year_index)
 
     add_color_scale(fig, df['nb_passages'].min(), df['nb_passages'].max())
@@ -63,13 +63,33 @@ def year_heatmap(year_df, fig, year_index):
             ygap=1,
             showscale=False,
             colorscale='orrd',
-            customdata=year_df['date'].dt.strftime(
-                '%d %B %Y').apply(translate_date),
+            hovertext=get_hover_info(year_df, week_days),
+            hoverinfo='text'
         )
     ]
 
     add_month_separators(year_heatmap, year_df, week_days, week_numbers)
     add_year_heatmap(fig, year_heatmap, year_index)
+
+
+def get_hover_info(year_df, week_days):
+    nb_squares = 371
+    hover_info = []
+
+    year_df['formatted_date'] = year_df['date'].dt.strftime(
+        '%d %B %Y').apply(translate_date)
+
+    for index, row in year_df.iterrows():
+        hover_info.append(heatmap_hover_template(
+            WEEK_DAYS_NAMES[week_days[index % 7]],
+            row['formatted_date'],
+            row['nb_passages']
+        ))
+
+    hover_info = [''] * week_days[0] + hover_info
+    hover_info += [''] * (nb_squares - len(hover_info))
+
+    return hover_info
 
 
 def translate_date(date_string):
