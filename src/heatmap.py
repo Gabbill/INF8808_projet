@@ -162,13 +162,3 @@ def update_layout(fig, fig_height):
     fig.update_layout(layout)
     fig.update_xaxes(layout['xaxis'])
     fig.update_yaxes(layout['yaxis'])
-
-
-# TODO :  À ENLEVER
-bike_counts_data_list = preprocess.load_bike_counts_data_list()
-bike_counts_df = preprocess.get_bike_counts_df(bike_counts_data_list)
-
-daily_bike_count = preprocess.get_daily_bike_count(bike_counts_df)
-
-fig = heatmap(daily_bike_count)
-fig.show()
