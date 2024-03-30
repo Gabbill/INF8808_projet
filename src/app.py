@@ -28,6 +28,8 @@ yearly_counters_count = preprocess.get_yearly_counters_count(bike_counts_df)
 daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
     bike_counts_data_list, bike_counts_df)
 
+montreal_bike_paths = preprocess.load_montreal_bike_paths()
+
 heatmap = heatmap(daily_bike_count)
 
 
