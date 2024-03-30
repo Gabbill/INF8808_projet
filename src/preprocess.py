@@ -3,19 +3,19 @@ import geopandas as gpd
 
 
 def load_bike_counts_data_list():
-    return [pd.read_csv(f'assets/comptage_velo_{year}.csv') for year in range(2019, 2025)]
+    return [pd.read_csv(f'assets/data/comptage_velo_{year}.csv') for year in range(2019, 2025)]
 
 
 def load_weather_data_list():
-    return [pd.read_csv(f'assets/en_climate_daily_QC_7025251_{year}_P1D.csv') for year in range(2019, 2025)]
+    return [pd.read_csv(f'assets/data/en_climate_daily_QC_7025251_{year}_P1D.csv') for year in range(2019, 2025)]
 
 
 def load_counters_locations():
-    return pd.read_csv('assets/localisation_des_compteurs_velo.csv')
+    return pd.read_csv('assets/data/localisation_des_compteurs_velo.csv')
 
 
 def load_montreal_bike_paths():
-    return gpd.read_file('assets/reseau_cyclable.geojson')
+    return gpd.read_file('assets/data/reseau_cyclable.geojson')
 
 
 def get_bike_counts_df(bike_counts_data_list):
