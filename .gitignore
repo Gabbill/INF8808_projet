@@ -2,4 +2,4 @@
 *.zip
 src/assets/*.csv
 src/assets/*.geojson
-src\__pycache__
+src/__pycache__
