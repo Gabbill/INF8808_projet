@@ -6,8 +6,8 @@ import numpy as np
 import pandas as pd
 
 
-def get_compteurs_dataframe():
-    compteurs = pd.read_csv(f'assets/comptage_velo_2022.csv')
+def get_compteurs_dataframe(localisation_data):
+    compteurs = pd.read_csv(f'assets/data/comptage_velo_2022.csv')
     compteurs = compteurs.groupby(['id_compteur', 'longitude', 'latitude'])['nb_passages'].sum().reset_index()
     
     localisation_compteurs = localisation_data[['ID', 'Annee_implante']].copy()
@@ -18,7 +18,7 @@ def get_compteurs_dataframe():
     return pd.merge(compteurs, localisation_compteurs, on='id_compteur', how='inner')
 
 
-def pistes_cyclables():
+def pistes_cyclables(geo_df_cycl):
     lats = []
     lons = []
     names = []
@@ -34,18 +34,18 @@ def pistes_cyclables():
             lats = np.append(lats, y)
             lons = np.append(lons, x)
             names = np.append(names, [name]*len(y))
-            lats = np.append(lats, None)
-            lons = np.append(lons, None)
-            names = np.append(names, None)
+            lats = np.append(lats, None)  # Use None as a separator for multi-segment lines
+            lons = np.append(lons, None)  # Use None as a separator for multi-segment lines
+            names = np.append(names, None)  # Use None as a separator for multi-segment lines
 
     fig = px.line_mapbox(lat=lats, lon=lons, hover_name=names, 
                         mapbox_style='open-street-map', zoom=11)
     fig.update_traces(line=dict(color='rgba(18,87,25,0.6)'))
     
     return fig
-    
 
-def add_compteurs(fig: go.Figure):
+
+def add_compteurs(fig: go.Figure, compteurs_dataframe):
     compteurs = px.scatter_mapbox(
         compteurs_dataframe,
         lat='latitude',
@@ -63,11 +63,12 @@ def add_compteurs(fig: go.Figure):
     fig.add_traces(list(compteurs.select_traces()))
     
 
-geo_df_cycl = gpd.read_file('assets/reseau_cyclable.geojson')
-localisation_data = pd.read_csv('assets/localisation_des_compteurs_velo.csv')
-compteurs_dataframe = get_compteurs_dataframe()
+def generate_viz3_figure():
+    geo_df_cycl = gpd.read_file('assets/data/reseau_cyclable.geojson')
+    localisation_data = pd.read_csv('assets/data/localisation_des_compteurs_velo.csv')
+    compteurs_dataframe = get_compteurs_dataframe(localisation_data)
 
-fig = pistes_cyclables()
-add_compteurs(fig)
+    fig = pistes_cyclables(geo_df_cycl)
+    add_compteurs(fig, compteurs_dataframe)
 
-fig.show()
+    return fig

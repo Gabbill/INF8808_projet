@@ -16,8 +16,10 @@ import dash_core_components as dcc
 from dash.dependencies import Input, Output
 
 import pandas as pd
-import preprocess
+import preprocess as preprocess
 from heatmap import heatmap
+from markups.visualisation_3 import generate_viz3_figure
+
 
 
 bike_counts_data_list = preprocess.load_bike_counts_data_list()
@@ -64,6 +66,14 @@ app.layout = html.Div(className='content', children=[
                 doubleClick=False,
                 displayModeBar=False
             )
+        ),
+        html.H3('Visualisation 3', className='viz-title'),
+        dcc.Graph(
+            id='viz3',
+            figure=generate_viz3_figure(), 
+            className='graph',
         )
     ])
 ])
+
+

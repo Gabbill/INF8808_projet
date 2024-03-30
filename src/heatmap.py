@@ -1,7 +1,7 @@
 # Inspired by : https://github.com/brunorosilva/plotly-calplot/
 
 import numpy as np
-import preprocess
+import preprocess as preprocess
 import plotly.graph_objects as go
 
 from plotly.subplots import make_subplots
