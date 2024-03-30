@@ -17,7 +17,7 @@ from dash.dependencies import Input, Output
 
 import pandas as pd
 import preprocess
-from heatmap import heatmap
+from visualizations.heatmap import heatmap
 
 
 bike_counts_data_list = preprocess.load_bike_counts_data_list()
