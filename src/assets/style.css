@@ -1,0 +1,18 @@
+header,
+main {
+  font-family: "Roboto";
+  padding: 0 15em;
+}
+
+h2 {
+  margin: 3em 0 0.2em 0;
+}
+
+p {
+  text-align: justify;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+}
