@@ -66,6 +66,8 @@ def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
     weather_data_list = load_weather_data_list()
     df_weather = pd.concat(weather_data_list, ignore_index=True)[
         ['Date/Time', 'Mean Temp (°C)', 'Total Rain (mm)', 'Total Snow (cm)']]
+
+    df_weather['Date/Time'] = pd.to_datetime(df_weather['Date/Time'])
     df_weather.rename(columns={'Date/Time': 'date'}, inplace=True)
 
     return pd.merge(normalized_bike_counts, df_weather, on='date', how='inner')
