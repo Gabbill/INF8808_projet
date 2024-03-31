@@ -18,8 +18,10 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import preprocess
 from heatmap import heatmap
+from scatterplot import get_temperature_figure
 
 
+# Data :
 bike_counts_data_list = preprocess.load_bike_counts_data_list()
 bike_counts_df = preprocess.get_bike_counts_df(bike_counts_data_list)
 
@@ -30,8 +32,13 @@ daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
 
 montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
+# HeatMap Graph
 heatmap = heatmap(daily_bike_count)
 
+
+# ScatterPlot Graph :
+scatterplot = get_temperature_figure(daily_bike_count_with_weather),
+#######
 
 app = dash.Dash(__name__)
 app.title = 'TP3 | INF8808'
@@ -44,8 +51,9 @@ app.layout = html.Div(className='content', children=[
     ]),
     html.Main(className='viz-container', children=[
         dcc.Graph(
-            id='heatmap',
+            id='scatterplot',  # was heatmap before
             className='graph',
+            # figure=get_temperature_figure(bike_count_weather),
             config=dict(
                 scrollZoom=False,
                 showTips=False,
@@ -67,3 +75,18 @@ app.layout = html.Div(className='content', children=[
         )
     ])
 ])
+
+# Callback pour réinitialiser le zoom du scatterplot avec deux clique
+
+
+@app.callback(
+    Output('scatterplot', 'relayoutData'),
+    [Input('scatterplot', 'clickData')]
+)
+def reset_zoom(clickData):
+    if clickData and 'dblclick' in clickData['event']:
+        return {'autosize': True}
+
+
+if __name__ == '__main__':
+    app.run_server(debug=True)
