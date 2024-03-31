@@ -12,7 +12,43 @@ p {
   text-align: justify;
 }
 
+.introduction {
+  margin-top: 3em;
+}
+
+.introduction + h2 {
+  margin-top: 2em;
+}
+
 .page-container {
   display: flex;
   flex-direction: column;
+}
+
+.shortcuts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 13em;
+  padding: 0.5em;
+}
+
+.shortcuts ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shortcuts ul li {
+  padding: 1em 0;
+}
+
+.shortcuts ul li a {
+  text-decoration: none;
+  color: rgb(103, 103, 103);
+  font-size: 0.7em;
+}
+
+.shortcuts ul li a:hover {
+  font-weight: bold;
 }
