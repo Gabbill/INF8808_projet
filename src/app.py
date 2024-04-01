@@ -52,7 +52,7 @@ app.layout = get_app_layout(
     heatmap,
     0,
     0,
-    0,
-    0,
-    0
+    temperature_scatter_plot,
+    snow_scatter_plot,
+    rain_scatter_plot
 )
