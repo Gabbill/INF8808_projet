@@ -22,11 +22,12 @@ def get_scatter_hover_template(label, x_unit):
 
 
 '''
-La fonction suivante fait référence à l'info-bulle des nuages de points.
+La fonction suivante fait référence à l'info-bulle de la moyenne des nuages de points.
 '''
 
 
 def get_mean_scatter_hover_template(mean_nb_passages_zero, x_info, x_unit):
     mean_hover = f"<b style='background-color: #d3d3d3;'> Moyenne de Passages :</b><span> {mean_nb_passages_zero:.0f} </span><br>"
     mean_hover += f"<b style='background-color: #d3d3d3;'> Quantité de {x_info}:</b><span> 0</span> <span>{x_unit}</span>"
+    mean_hover += '<extra></extra>'
     return mean_hover
