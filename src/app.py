@@ -18,7 +18,7 @@ from dash.dependencies import Input, Output
 import pandas as pd
 import preprocess
 from heatmap import heatmap
-from scatterplot import get_rain_figure
+from scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
 
 
 # Data :
@@ -37,9 +37,13 @@ heatmap = heatmap(daily_bike_count)
 
 
 # ScatterPlot Graph :
-scatterplot = get_temperature_figure(daily_bike_count_with_weather)
-scatterplot = get_snow_figure(daily_bike_count_with_weather)
-scatterplot = get_rain_figure(daily_bike_count_with_weather)
+temperature_scatter_plot = get_temperature_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+snow_scatter_plot = get_snow_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+rain_scatter_plot = get_rain_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+
 #######
 
 app = dash.Dash(__name__)
@@ -55,7 +59,6 @@ app.layout = html.Div(className='content', children=[
         dcc.Graph(
             id='scatterplot',  # was heatmap before
             className='graph',
-            figure=scatterplot,
             config=dict(
                 scrollZoom=False,
                 showTips=False,
