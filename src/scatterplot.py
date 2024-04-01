@@ -66,6 +66,7 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
         yaxis_title='Nombre de passages (milliers)',
         font=dict(size=10, color='black'),
         plot_bgcolor='white',
+        hoverlabel=dict(bgcolor="white",)
     )
     fig.update_traces(marker_color='#1f77b4', hovertemplate=hover_template)
 
