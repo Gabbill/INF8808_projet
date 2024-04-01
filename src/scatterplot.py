@@ -4,6 +4,34 @@ import numpy as np
 import pandas as pd
 import hover_template
 
+
+'''
+La fonction suivante va permettre de traduire les mois de la variable 'date' en français 
+pour une meilleur lecture et lisibilité
+'''
+
+
+def translate_date(date_string):
+    MONTH_NAMES = {
+        'January': 'janvier',
+        'February': 'février',
+        'March': 'mars',
+        'April': 'avril',
+        'May': 'mai',
+        'June': 'juin',
+        'July': 'juillet',
+        'August': 'août',
+        'September': 'septembre',
+        'October': 'octobre',
+        'November': 'novembre',
+        'December': 'décembre'
+    }
+    for eng_month, fr_month in MONTH_NAMES.items():
+        if eng_month in date_string:
+            return date_string.replace(eng_month, fr_month)
+    return date_string
+
+
 '''
 
 Dans le cas de graphique représentant la neige ou la pluie,
@@ -57,9 +85,10 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
     # Appel de la fonction pour ajouter la trace de la moyenne dans le cas de neige ou pluie
     mean_trace = add_mean_trace(data, x_column)
 
-    # Convertir les variables dates
+    # Convertir la variable date en structure plus lisible
     data['date'] = pd.to_datetime(data['date'])
     data['date'] = data['date'].dt.strftime('%d %B %Y')
+    data['date'] = data['date'].apply(translate_date)
 
     # Nuage de Points
     fig = px.scatter(data, x=x_column, y='nb_passages',
