@@ -1,8 +1,6 @@
 import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
-import pandas as pd
-import utils
 import hover_template
 
 
@@ -56,11 +54,6 @@ On pourra l'utiliser ensuite directement pour choisir la variable à représente
 def get_scatterplot_figure(data, x_column, x_title, hover_template):
     # Appel de la fonction pour ajouter la trace de la moyenne dans le cas de neige ou pluie
     mean_trace = add_mean_trace(data, x_column)
-
-    # Convertir la variable date en structure plus lisible
-    data['date'] = pd.to_datetime(data['date'])
-    data['date'] = data['date'].dt.strftime(
-        '%d %B %Y').apply(utils.translate_date)
 
     # Nuage de Points
     fig = px.scatter(data, x=x_column, y='nb_passages',

@@ -1,5 +1,6 @@
 import pandas as pd
 import geopandas as gpd
+import utils
 
 
 def load_bike_counts_data_list():
@@ -32,6 +33,8 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
 def get_daily_bike_count(bike_counts_df):
     df = bike_counts_df.groupby('date')['nb_passages'].sum().reset_index()
     df['date'] = pd.to_datetime(df['date'])
+    df['formatted_date'] = df['date'].dt.strftime(
+        '%d %B %Y').apply(utils.translate_date)
     return df
 
 
@@ -67,7 +70,9 @@ def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
     df_weather = pd.concat(weather_data_list, ignore_index=True)[
         ['Date/Time', 'Mean Temp (°C)', 'Total Rain (mm)', 'Total Snow (cm)']]
 
-    df_weather['Date/Time'] = pd.to_datetime(df_weather['Date/Time'])
     df_weather.rename(columns={'Date/Time': 'date'}, inplace=True)
+    df_weather['date'] = pd.to_datetime(df_weather['date'])
+    df_weather['formatted_date'] = df_weather['date'].dt.strftime(
+        '%d %B %Y').apply(utils.translate_date)
 
     return pd.merge(normalized_bike_counts, df_weather, on='date', how='inner')
