@@ -37,7 +37,7 @@ heatmap = heatmap(daily_bike_count)
 
 
 # ScatterPlot Graph :
-scatterplot = get_temperature_figure(daily_bike_count_with_weather),
+scatterplot = get_temperature_figure(daily_bike_count_with_weather)
 #######
 
 app = dash.Dash(__name__)
@@ -53,7 +53,7 @@ app.layout = html.Div(className='content', children=[
         dcc.Graph(
             id='scatterplot',  # was heatmap before
             className='graph',
-            # figure=get_temperature_figure(bike_count_weather),
+            figure=scatterplot,
             config=dict(
                 scrollZoom=False,
                 showTips=False,
