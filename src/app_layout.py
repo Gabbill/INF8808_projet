@@ -20,17 +20,7 @@ def get_app_layout(
     )
 
     return html.Div(className='content', children=[
-        html.Header(children=[
-            html.H1(
-                "Le vélo à Montréal : Évolution des pistes cyclables et tendances d'utilisation"
-            ),
-        ]),
-
         html.Main(className='page-container', children=[
-            html.B(
-                "Par : Émile Watier, Gabriel Billard, Jonathan Tapiero, Lana Pham, Nargisse Benbiga, Thomas Logeais"),
-
-
             html.Div(
                 className="shortcuts",
                 children=[
@@ -57,6 +47,11 @@ def get_app_layout(
             ),
 
 
+            html.H1(
+                "Le vélo à Montréal : Évolution des pistes cyclables et tendances d'utilisation"
+            ),
+            html.B(
+                "Par : Émile Watier, Gabriel Billard, Jonathan Tapiero, Lana Pham, Nargisse Benbiga, Thomas Logeais"),
             html.P(
                 "paragraphe d'introduction",
                 className="introduction"

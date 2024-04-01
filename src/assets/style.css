@@ -1,7 +1,16 @@
+html {
+  background-color: rgb(241, 241, 241);
+}
+
 header,
 main {
   font-family: "Roboto";
-  padding: 0 15em;
+  margin: 0 15em;
+  background-color: white;
+}
+
+body {
+  margin: 0;
 }
 
 h2 {
@@ -23,6 +32,7 @@ p {
 .page-container {
   display: flex;
   flex-direction: column;
+  padding: 1em 3em;
 }
 
 .shortcuts {
