@@ -3,6 +3,7 @@
 import numpy as np
 import preprocess
 import plotly.graph_objects as go
+import utils
 
 from plotly.subplots import make_subplots
 from hover_template import heatmap_hover_template
@@ -11,20 +12,6 @@ YEARS = [2019, 2020, 2021, 2022, 2023]
 WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
                    'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MONTH_POSITIONS = np.linspace(1.5, 50, 12)
-MONTH_NAMES = {
-    'January': 'janvier',
-    'February': 'février',
-    'March': 'mars',
-    'April': 'avril',
-    'May': 'mai',
-    'June': 'juin',
-    'July': 'juillet',
-    'August': 'août',
-    'September': 'septembre',
-    'October': 'octobre',
-    'November': 'novembre',
-    'December': 'décembre'
-}
 
 
 def heatmap(df):
@@ -74,20 +61,13 @@ def year_heatmap(year_df, fig, year_index):
 
 def get_hover_info(year_df, week_days):
     year_df['formatted_date'] = year_df['date'].dt.strftime(
-        '%d %B %Y').apply(translate_date)
+        '%d %B %Y').apply(utils.translate_date)
 
     return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
             row['formatted_date'],
             row['nb_passages']
             ) for index, row in year_df.iterrows()]
-
-
-def translate_date(date_string):
-    for eng_month, fr_month in MONTH_NAMES.items():
-        if eng_month in date_string:
-            return date_string.replace(eng_month, fr_month)
-    return date_string
 
 
 def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
@@ -131,7 +111,8 @@ def add_color_scale(fig, min_value, max_value):
 
 
 def update_layout(fig, fig_height):
-    french_months = [month.capitalize() for month in MONTH_NAMES.values()]
+    french_months = [month.capitalize()
+                     for month in utils.MONTH_NAMES.values()]
     layout = go.Layout(
         xaxis=dict(
             showline=False,
