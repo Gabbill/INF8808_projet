@@ -1,7 +1,7 @@
-import plotly.express as px
-import numpy as np
 import plotly.graph_objects as go
 import plotly.express as px
+import numpy as np
+import pandas as pd
 import hover_template
 
 '''
@@ -57,6 +57,10 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
     # Appel de la fonction pour ajouter la trace de la moyenne dans le cas de neige ou pluie
     mean_trace = add_mean_trace(data, x_column)
 
+    # Convertir les variables dates
+    data['date'] = pd.to_datetime(data['date'])
+    data['date'] = data['date'].dt.strftime('%d %B %Y')
+
     # Nuage de Points
     fig = px.scatter(data, x=x_column, y='nb_passages',
                      custom_data=[x_column, 'nb_passages', 'date'])
@@ -64,7 +68,9 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
         xaxis_title=x_title,
         xaxis_tickangle=0,
         yaxis_title='Nombre de passages (milliers)',
-        font=dict(size=10, color='black'),
+        font=dict(size=12, color='black', family='Roboto'),
+        xaxis=dict(showgrid=True),  # Afficher la grille sur l'axe des x
+        yaxis=dict(showgrid=True),  # Afficher la grille sur l'axe des y
         plot_bgcolor='white',
     )
     fig.update_traces(marker_color='#1f77b4', hovertemplate=hover_template)
@@ -103,5 +109,5 @@ def get_snow_figure(data):
 
 def get_rain_figure(data):
     hover_template_pluie = hover_template.get_scatter_hover_template(
-        'Quantité de pluie :', 'mm')
+        'Quantité de pluie ', 'mm')
     return get_scatterplot_figure(data, 'Total Rain (mm)', 'Quantité de pluie (mm)', hover_template_pluie)
