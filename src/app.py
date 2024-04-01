@@ -16,9 +16,10 @@ import preprocess
 
 from app_layout import get_app_layout
 from visualizations.heatmap import heatmap
+from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
 
 
-# Preprocess data
+# Data :
 bike_counts_data_list = preprocess.load_bike_counts_data_list()
 bike_counts_df = preprocess.get_bike_counts_df(bike_counts_data_list)
 
@@ -29,8 +30,19 @@ daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
 
 montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
-# Visualizations
+# HeatMap Graph
 heatmap = heatmap(daily_bike_count)
+
+
+# ScatterPlot Graph :
+temperature_scatter_plot = get_temperature_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+snow_scatter_plot = get_snow_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+rain_scatter_plot = get_rain_figure(
+    daily_bike_count_with_weather.copy(deep=True))
+
+#######
 
 app = dash.Dash(__name__)
 app.title = 'Le vélo à Montréal'
