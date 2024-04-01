@@ -38,6 +38,7 @@ heatmap = heatmap(daily_bike_count)
 
 # ScatterPlot Graph :
 scatterplot = get_temperature_figure(daily_bike_count_with_weather)
+scatterplot = get_snow_figure(daily_bike_count_with_weather)
 scatterplot = get_rain_figure(daily_bike_count_with_weather)
 #######
 
