@@ -17,8 +17,8 @@ from dash.dependencies import Input, Output
 
 import pandas as pd
 import preprocess
-from heatmap import heatmap
-from scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
+from visualizations.heatmap import heatmap
+from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
 
 
 # Data :
