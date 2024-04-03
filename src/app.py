@@ -67,13 +67,28 @@ app.layout = html.Div(className='content', children=[
                 displayModeBar=False
             )
         ),
-        html.H3('Visualisation 3', className='viz-title'),
-        dcc.Graph(
-            id='viz3',
-            figure=generate_viz3_figure(), 
-            className='graph',
-        )
+         dcc.Slider(
+        id='year-slider',
+        min=2019,
+        max=2024,
+        value=2024,
+        marks={str(year): str(year) for year in range(2019, 2025)},
+        step=None
+    ),
+        dcc.Graph(id='map-visualization')
+        # html.H3('Visualisation 3', className='viz-title'),
+        # dcc.Graph(
+        #     id='viz3',
+        #     figure=generate_viz3_figure(), 
+        #     className='graph',
+        # )
     ])
 ])
 
+@app.callback(
+    Output('map-visualization', 'figure'),
+    [Input('year-slider', 'value')]
+)
+def update_figure(selected_year):
+    return generate_viz3_figure(selected_year)
 
