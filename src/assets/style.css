@@ -21,6 +21,10 @@ p {
   text-align: justify;
 }
 
+#heatmap {
+  height: 90vh;
+}
+
 .introduction {
   margin-top: 3em;
 }
