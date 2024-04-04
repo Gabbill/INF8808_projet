@@ -5,7 +5,7 @@ La fonction suivante fait référence à l'info-bulle de la HeatMap.
 
 
 def heatmap_hover_template(week_day, date, bike_count):
-    return f'<b>{week_day} le {date}</b><br><span>{bike_count} passages</span>'
+    return f'<b style="color: #E55037">{week_day} le {date}</b><br><span>{bike_count} passages</span>'
 
 
 '''
