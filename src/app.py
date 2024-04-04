@@ -17,6 +17,7 @@ from dash.dependencies import Input, Output
 
 import pandas as pd
 import preprocess
+from visualizations.windrosechart import create_seasonal_polar_chart
 from visualizations.heatmap import heatmap
 from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
 
@@ -29,6 +30,8 @@ daily_bike_count = preprocess.get_daily_bike_count(bike_counts_df)
 yearly_counters_count = preprocess.get_yearly_counters_count(bike_counts_df)
 daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
     bike_counts_data_list, bike_counts_df)
+
+hourly_bike_count = preprocess.get_hourly_bike_count(bike_counts_df)
 
 montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
@@ -43,6 +46,12 @@ snow_scatter_plot = get_snow_figure(
     daily_bike_count_with_weather.copy(deep=True))
 rain_scatter_plot = get_rain_figure(
     daily_bike_count_with_weather.copy(deep=True))
+
+# WindRose Graph :
+windrosechartwinter = create_seasonal_polar_chart(hourly_bike_count, 'Hiver')
+windrosechartspring = create_seasonal_polar_chart(hourly_bike_count, 'Printemps')
+windrosechartsummer = create_seasonal_polar_chart(hourly_bike_count, 'Été')
+windrosechartfall = create_seasonal_polar_chart(hourly_bike_count, 'Automne')
 
 #######
 

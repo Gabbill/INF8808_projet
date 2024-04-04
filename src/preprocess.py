@@ -39,8 +39,24 @@ def get_daily_bike_count(bike_counts_df):
 
 
 # Visualisation 2
+def get_season(month):
+    if month in [12, 1, 2]:
+        return 'Hiver'
+    elif month in [3, 4, 5]:
+        return 'Printemps' 
+    elif month in [6, 7, 8]:
+        return 'Été' 
+    elif month in [9, 10, 11]:
+        return 'Automne'  
+
 def get_hourly_bike_count(bike_counts_df):
-    pass
+    bike_counts_df['date'] = pd.to_datetime(bike_counts_df['date'])
+    bike_counts_df['season'] = bike_counts_df['date'].dt.month.apply(get_season)
+
+    df = bike_counts_df.groupby(['heure', 'season'])['nb_passages'].sum().reset_index()
+    df['heure'] = pd.to_datetime(df['heure']).dt.strftime('%Hh') 
+    df = df.groupby(['heure', 'season'], as_index=False)['nb_passages'].sum()
+    return df
 
 
 # Visualisation 3
