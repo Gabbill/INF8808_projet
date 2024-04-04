@@ -62,3 +62,7 @@ p {
 .shortcuts ul li a:hover {
   font-weight: bold;
 }
+
+.shortcuts ul li ul li {
+  padding: 0.5em 0 0 1em;
+}

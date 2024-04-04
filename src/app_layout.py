@@ -40,7 +40,21 @@ def get_app_layout(
                         ]),
                         html.Li(children=[
                             html.A("Impact des conditions météorologiques",
-                                href="#weather-condition")
+                                href="#weather-condition"),
+                            html.Ul(children=[
+                                html.Li(children=[
+                                    html.A("Influence de la température",
+                                           href="#temperature")
+                                ]),
+                                html.Li(children=[
+                                    html.A("Influence de la quantité de neige tombée",
+                                           href="#snow")
+                                ]),
+                                html.Li(children=[
+                                    html.A("Influence de la quantité de pluie tombée",
+                                           href="#rain")
+                                ])
+                            ])
                         ]),
                     ])
                 ]
@@ -150,7 +164,10 @@ def get_app_layout(
                 communs entre les années afin de ne pas considérer l'évolution du \
                 nombre de compteurs."),
 
-            html.H3("Influence de la température"),
+            html.H3(
+                children="Influence de la température",
+                id="temperature"
+            ),
             dcc.Graph(
                 figure=temperature_scatter_plot,
                 id='temperature-scatter-plot',
@@ -171,7 +188,10 @@ def get_app_layout(
                 par d'autres facteurs tels que la quantité de neige ou la quantité \
                 de pluie, en plus de la température extérieure."),
 
-            html.H3("Influence de la quantité de neige tombée"),
+            html.H3(
+                "Influence de la quantité de neige tombée",
+                id="snow"
+            ),
             dcc.Graph(
                 figure=snow_scatter_plot,
                 id='snow-scatter-plot',
@@ -209,7 +229,10 @@ def get_app_layout(
                 aucune neige tombante, nous pouvons conclure que la neige tombante \
                 a une forte influence sur le nombre de passages à vélo à Montréal."),
 
-            html.H3("Influence de la quantité de pluie tombée"),
+            html.H3(
+                "Influence de la quantité de pluie tombée",
+                id="rain"
+            ),
             dcc.Graph(
                 figure=rain_scatter_plot,
                 id='rain-scatter-plot',
