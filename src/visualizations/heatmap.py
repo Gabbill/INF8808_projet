@@ -60,9 +60,6 @@ def year_heatmap(year_df, fig, year_index):
 
 
 def get_hover_info(year_df, week_days):
-    year_df['formatted_date'] = year_df['date'].dt.strftime(
-        '%d %B %Y').apply(utils.translate_date)
-
     return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
             row['formatted_date'],

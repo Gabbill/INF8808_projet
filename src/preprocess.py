@@ -1,5 +1,6 @@
 import pandas as pd
 import geopandas as gpd
+import utils
 
 
 def load_bike_counts_data_list():
@@ -32,12 +33,30 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
 def get_daily_bike_count(bike_counts_df):
     df = bike_counts_df.groupby('date')['nb_passages'].sum().reset_index()
     df['date'] = pd.to_datetime(df['date'])
+    df['formatted_date'] = df['date'].dt.strftime(
+        '%d %B %Y').apply(utils.translate_date)
     return df
 
 
 # Visualisation 2
+def get_season(month):
+    if month in [12, 1, 2]:
+        return 'Hiver'
+    elif month in [3, 4, 5]:
+        return 'Printemps' 
+    elif month in [6, 7, 8]:
+        return 'Été' 
+    elif month in [9, 10, 11]:
+        return 'Automne'  
+
 def get_hourly_bike_count(bike_counts_df):
-    pass
+    bike_counts_df['date'] = pd.to_datetime(bike_counts_df['date'])
+    bike_counts_df['season'] = bike_counts_df['date'].dt.month.apply(get_season)
+
+    df = bike_counts_df.groupby(['heure', 'season'])['nb_passages'].sum().reset_index()
+    df['heure'] = pd.to_datetime(df['heure']).dt.strftime('%Hh') 
+    df = df.groupby(['heure', 'season'], as_index=False)['nb_passages'].sum()
+    return df
 
 
 # Visualisation 3
@@ -67,7 +86,9 @@ def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
     df_weather = pd.concat(weather_data_list, ignore_index=True)[
         ['Date/Time', 'Mean Temp (°C)', 'Total Rain (mm)', 'Total Snow (cm)']]
 
-    df_weather['Date/Time'] = pd.to_datetime(df_weather['Date/Time'])
     df_weather.rename(columns={'Date/Time': 'date'}, inplace=True)
+    df_weather['date'] = pd.to_datetime(df_weather['date'])
+    df_weather['formatted_date'] = df_weather['date'].dt.strftime(
+        '%d %B %Y').apply(utils.translate_date)
 
     return pd.merge(normalized_bike_counts, df_weather, on='date', how='inner')

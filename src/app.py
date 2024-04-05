@@ -15,6 +15,7 @@ import dash
 import preprocess
 
 from app_layout import get_app_layout
+from visualizations.polar_bar_chart import create_seasonal_polar_chart
 from visualizations.heatmap import heatmap
 from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
 
@@ -27,6 +28,8 @@ daily_bike_count = preprocess.get_daily_bike_count(bike_counts_df)
 yearly_counters_count = preprocess.get_yearly_counters_count(bike_counts_df)
 daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
     bike_counts_data_list, bike_counts_df)
+
+hourly_bike_count = preprocess.get_hourly_bike_count(bike_counts_df)
 
 montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
@@ -41,6 +44,16 @@ snow_scatter_plot = get_snow_figure(
     daily_bike_count_with_weather.copy(deep=True))
 rain_scatter_plot = get_rain_figure(
     daily_bike_count_with_weather.copy(deep=True))
+
+# Polar Bar Chart :
+polar_bar_chart_winter = create_seasonal_polar_chart(
+    hourly_bike_count, 'Hiver')
+polar_bar_chart_spring = create_seasonal_polar_chart(
+    hourly_bike_count, 'Printemps')
+polar_bar_chart_summer = create_seasonal_polar_chart(hourly_bike_count, 'Été')
+polar_bar_chart_fall = create_seasonal_polar_chart(
+    hourly_bike_count, 'Automne')
+
 
 #######
 
