@@ -33,7 +33,9 @@ def create_seasonal_polar_chart(df, season):
                 gridcolor='grey'
             )
         ),
-        title=f"Utilisation des pistes cyclables par heure pendant {season}"
+        margin=dict(l=40, r=40, t=40, b=40),
+        title=f"Utilisation des pistes cyclables par heure pendant {season}",
+        title_x=0.5,
     )
 
     return fig
