@@ -3,7 +3,8 @@
 
 '''
     File name: app.py
-    Author: Équipe 09
+    Author: Émile Watier, Gabriel Billard, Jonathan Tapiero, 
+            Lana Pham, Nargisse Benbiga, Thomas Logeais
     Course: INF8808
     Python Version: 3.8
 
@@ -11,12 +12,9 @@
 '''
 
 import dash
-import dash_html_components as html
-import dash_core_components as dcc
-from dash.dependencies import Input, Output
-
-import pandas as pd
 import preprocess
+
+from app_layout import get_app_layout
 from visualizations.polar_bar_chart import create_seasonal_polar_chart
 from visualizations.heatmap import heatmap
 from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
@@ -60,51 +58,17 @@ polar_bar_chart_fall = create_seasonal_polar_chart(
 #######
 
 app = dash.Dash(__name__)
-app.title = 'TP3 | INF8808'
+app.title = 'Le vélo à Montréal'
 
-
-app.layout = html.Div(className='content', children=[
-    html.Header(children=[
-        html.H1('Trees planted in Montreal neighborhoods'),
-        html.H2('From 2010 to 2020')
-    ]),
-    html.Main(className='viz-container', children=[
-        dcc.Graph(
-            id='scatterplot',  # was heatmap before
-            className='graph',
-            config=dict(
-                scrollZoom=False,
-                showTips=False,
-                showAxisDragHandles=False,
-                doubleClick=False,
-                displayModeBar=False
-            )
-        ),
-        dcc.Graph(
-            id='line-chart',
-            className='graph',
-            config=dict(
-                scrollZoom=False,
-                showTips=False,
-                showAxisDragHandles=False,
-                doubleClick=False,
-                displayModeBar=False
-            )
-        )
-    ])
-])
-
-# Callback pour réinitialiser le zoom du scatterplot avec deux clique
-
-
-@app.callback(
-    Output('scatterplot', 'relayoutData'),
-    [Input('scatterplot', 'clickData')]
+# TODO: Ajouter toutes les figures (heatmap, horloge, map, température, neige, pluie)
+app.layout = get_app_layout(
+    heatmap,
+    polar_bar_chart_winter,
+    polar_bar_chart_spring,
+    polar_bar_chart_summer,
+    polar_bar_chart_fall,
+    0,
+    temperature_scatter_plot,
+    snow_scatter_plot,
+    rain_scatter_plot
 )
-def reset_zoom(clickData):
-    if clickData and 'dblclick' in clickData['event']:
-        return {'autosize': True}
-
-
-if __name__ == '__main__':
-    app.run_server(debug=True)

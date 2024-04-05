@@ -34,7 +34,11 @@ def create_seasonal_polar_chart(df, season):
             )
         ),
         margin=dict(l=40, r=40, t=40, b=40),
-        title=f"Utilisation des pistes cyclables par heure pendant {season}",
+        font=dict(size=10, family='Roboto'),
+        title=dict(
+            text=f"Utilisation des pistes cyclables par heure pendant {season}",
+            font=dict(size=12),
+        ),
         title_x=0.5,
     )
 

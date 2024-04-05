@@ -50,7 +50,8 @@ def year_heatmap(year_df, fig, year_index):
             showscale=False,
             colorscale='orrd',
             hovertext=get_hover_info(year_df, week_days),
-            hoverinfo='text'
+            hoverinfo='text',
+            hoverlabel=dict(bgcolor='white')
         )
     ]
 
