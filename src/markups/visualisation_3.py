@@ -1,90 +1,64 @@
 import plotly.express as px
-import plotly.graph_objects as go
-import geopandas as gpd
 import shapely.geometry
 import numpy as np
-import pandas as pd
 
-def get_compteurs_dataframe(selected_year):
-    localisation_data = pd.read_csv('assets/data/localisation_des_compteurs_velo.csv')
-    localisation_data = localisation_data[localisation_data['Annee_implante'] >= 2019]
+colors = ['red', 'blue', 'purple', 'orange', 'green', 'yellow']
 
-    compteurs = pd.read_csv(f'assets/data/comptage_velo_{selected_year}.csv')
-    compteurs['date'] = pd.to_datetime(compteurs['date'])
-    compteurs = compteurs[compteurs['date'].dt.year <= selected_year]
-    compteurs = compteurs.groupby(['id_compteur', 'longitude', 'latitude'])['nb_passages'].sum().reset_index()
-    
-    localisation_compteurs = localisation_data[['ID', 'Annee_implante']].copy()
-    localisation_compteurs.rename(columns={'ID': 'id_compteur'}, inplace=True)
-    
-    localisation_compteurs['Annee_implante'] = localisation_compteurs['Annee_implante'].astype(str)
-    
-    return pd.merge(compteurs, localisation_compteurs, on='id_compteur', how='inner')
 
-def pistes_cyclables(geo_df_cycl):
+def create_viz3(yearly_counters_count, montreal_bike_paths):
+    years = yearly_counters_count['Année'].unique()
+    color_discrete_map = {
+        str(years[i]): colors[i] for i in range(len(years))
+    }
     lats = []
     lons = []
     names = []
-
-    for feature, name in zip(geo_df_cycl.geometry, geo_df_cycl.NOM_ARR_VILLE_DESC):
+    for feature, name in zip(montreal_bike_paths.geometry, montreal_bike_paths.NOM_ARR_VILLE_DESC):
         if not isinstance(feature, shapely.geometry.linestring.LineString):
             continue
-        
+
         linestrings = [feature]
-        
+
         for linestring in linestrings:
             x, y = linestring.xy
-            lats = np.append(lats, y)
-            lons = np.append(lons, x)
-            names = np.append(names, [name]*len(y))
-            lats = np.append(lats, None) 
-            lons = np.append(lons, None)  
-            names = np.append(names, None)  
+            # None to create a gap in the line
+            lats.extend(y.tolist() + [None])
+            lons.extend(x.tolist() + [None])
+            names.extend([name]*len(y) + [None])
+    # For earch year, all id_counter should be represented with its corresponding "Annee_implante"
 
-    fig = px.line_mapbox(lat=lats, lon=lons, hover_name=names, 
-                        mapbox_style='open-street-map', zoom=11)
-    fig.update_traces(line=dict(color='rgba(18,87,25,0.6)'))
-    fig.add_trace(go.Scattermapbox(mode='none', name='Pistes cyclables', 
-                                   marker=dict(color='rgba(18,87,25,0.6)'), showlegend=True))
-    
-    return fig
-
-
-def add_compteurs(fig: go.Figure, compteurs_dataframe):
-    color_discrete_map = {
-        '2019': 'red', 
-        '2020': 'blue', 
-        '2021': 'purple', 
-        '2022': 'orange',
-        '2023': 'green',
-        '2024': 'yellow'
-    }
-    
+    for compteur_id in yearly_counters_count['id_compteur'].unique():
+        compteurs = yearly_counters_count[yearly_counters_count['id_compteur'] == compteur_id]
+        for year in years:
+            if year not in compteurs['Année'].values:
+                yearly_counters_count.loc[len(yearly_counters_count)] = [compteur_id, compteurs['longitude'].values[0],
+                                                                         compteurs['latitude'].values[0], year, 0, compteurs['Annee_implante'].values[0]]
     compteurs = px.scatter_mapbox(
-        compteurs_dataframe,
+        yearly_counters_count,
+        animation_frame='Année',
+        animation_group='Annee_implante',
         lat='latitude',
         lon='longitude',
         size='nb_passages',
         color='Annee_implante',
         color_discrete_map=color_discrete_map,
-        labels={'color': 'Année d\'implantation'}
+        opacity=1,
+        labels={'color': 'Année d\'implantation'},
+        custom_data=['Annee_implante']
     )
-    
     compteurs.update_traces(
         mode='markers',
-        marker=dict(sizemin=6)
+        marker=dict(sizemin=6),
+        hovertemplate='<b>Année d\'implantation: %{customdata[0]}</b><br>Nombre de passages: %{marker.size}<br>Lat: %{lat}<br>Lon: %{lon}<extra></extra>'
     )
-
-    fig.add_traces(list(compteurs.select_traces()))
-
-    fig.update_layout(legend_title_text='Légende')
-
-
-def generate_viz3_figure(selected_year):
-    geo_df_cycl = gpd.read_file('assets/data/reseau_cyclable.geojson')
-    compteurs_dataframe = get_compteurs_dataframe(selected_year)
-
-    fig = pistes_cyclables(geo_df_cycl)
-    add_compteurs(fig, compteurs_dataframe)
-
-    return fig
+    compteurs.update_layout(
+        mapbox_style='carto-positron',
+        mapbox_zoom=10,
+        mapbox_center={'lat': np.mean([lat for lat in yearly_counters_count["latitude"] if lat is not None]),
+                       'lon': np.mean([lon for lon in yearly_counters_count["longitude"] if lon is not None])},
+        showlegend=True,
+        legend_title_text="Année d'implémentation des compteurs",
+    )
+    compteurs.add_scattermapbox(lat=lats, lon=lons, mode='lines', line=dict(
+        color='rgba(18,87,25,0.6)'), hoverinfo='skip', name='Pistes cyclables')
+    return compteurs
