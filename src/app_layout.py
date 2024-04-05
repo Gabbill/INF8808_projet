@@ -4,7 +4,10 @@ import dash_core_components as dcc
 
 def get_app_layout(
     heatmap,
-    polar_bar_chart,
+    polar_bar_chart_winter,
+    polar_bar_chart_spring,
+    polar_bar_chart_summer,
+    polar_bar_chart_fall,
     map,
     temperature_scatter_plot,
     snow_scatter_plot,
@@ -111,12 +114,27 @@ def get_app_layout(
                 id="hourly-traffic",
             ),
             html.P(
-                "Cette section aborde l'achalandage moyen par heure des quatre saisons."),
-            dcc.Graph(
-                figure=polar_bar_chart,
-                id='polar-bar-chart',
-                config=figure_config
-            ),
+                "Cette section aborde l'achalandage moyen des pistes cyclables \
+                    par heure des quatre saisons."),
+            html.Div(className='polar-bar-charts-container', children=[
+                dcc.Graph(
+                    figure=polar_bar_chart_winter,
+                    config=figure_config
+                ),
+                dcc.Graph(
+                    figure=polar_bar_chart_spring,
+                    config=figure_config
+                ),
+                dcc.Graph(
+                    figure=polar_bar_chart_summer,
+                    config=figure_config
+                ),
+                dcc.Graph(
+                    figure=polar_bar_chart_fall,
+                    config=figure_config
+                ),
+            ]),
+
             html.P("En observant ces horloges de l'achalandage, un motif \
                 se dessine clairement : les pics d'activité coïncident avec les \
                 heures de début et de fin de journée de travail, soulignant 8 \

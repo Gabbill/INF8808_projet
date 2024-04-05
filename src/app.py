@@ -63,7 +63,10 @@ app.title = 'Le vélo à Montréal'
 # TODO: Ajouter toutes les figures (heatmap, horloge, map, température, neige, pluie)
 app.layout = get_app_layout(
     heatmap,
-    0,
+    polar_bar_chart_winter,
+    polar_bar_chart_spring,
+    polar_bar_chart_summer,
+    polar_bar_chart_fall,
     0,
     temperature_scatter_plot,
     snow_scatter_plot,

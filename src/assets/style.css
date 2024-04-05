@@ -39,6 +39,16 @@ p {
   padding: 1em 3em;
 }
 
+.polar-bar-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.polar-bar-charts-container .dash-graph {
+  flex: 0 0 50%;
+  height: 50vh;
+}
+
 .shortcuts {
   position: fixed;
   top: 0;
