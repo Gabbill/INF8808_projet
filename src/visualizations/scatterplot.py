@@ -57,7 +57,7 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
 
     # Nuage de Points
     fig = px.scatter(data, x=x_column, y='nb_passages',
-                     custom_data=[x_column, 'nb_passages', 'date'])
+                     custom_data=['formatted_date_x'])
     fig.update_layout(
         xaxis_title=x_title,
         xaxis_tickangle=0,
@@ -103,5 +103,5 @@ def get_snow_figure(data):
 # Visualisation de la pluie
 def get_rain_figure(data):
     hover_template_pluie = hover_template.get_scatter_hover_template(
-        'Quantité de pluie ', 'mm')
+        'Quantité de pluie', 'mm')
     return get_scatterplot_figure(data, 'Total Rain (mm)', 'Quantité de pluie (mm)', hover_template_pluie)
