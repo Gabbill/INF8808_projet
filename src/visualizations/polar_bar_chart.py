@@ -1,13 +1,14 @@
 import plotly.graph_objects as go
 
+
 def create_seasonal_polar_chart(df, season):
     seasonal_data = df[df['season'] == season]
-    
+
     fig = go.Figure()
 
     fig.add_trace(go.Barpolar(
-        r=seasonal_data['nb_passages'], 
-        theta=seasonal_data['heure'],   
+        r=seasonal_data['nb_passages'],
+        theta=seasonal_data['heure'],
         marker_color='#1f77b4',
         marker_line_color='black',
         marker_line_width=1.5,
@@ -32,7 +33,9 @@ def create_seasonal_polar_chart(df, season):
                 gridcolor='grey'
             )
         ),
-        title=f"Utilisation des pistes cyclables par heure pendant {season}"
+        margin=dict(l=40, r=40, t=40, b=40),
+        title=f"Utilisation des pistes cyclables par heure pendant {season}",
+        title_x=0.5,
     )
 
     return fig
