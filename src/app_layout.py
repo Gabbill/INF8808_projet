@@ -70,6 +70,11 @@ def get_app_layout(
             html.B(
                 "Par : Émile Watier, Gabriel Billard, Jonathan Tapiero, Lana Pham, Nargisse Benbiga, Thomas Logeais"),
             html.P(
+                # Au fil des années, le vélo s'est imposé comme un élément essentiel du paysage urbain de Montréal.
+                # Son évolution, marquée par le développement des pistes cyclables et les changements dans les habitudes de déplacement,
+                # témoigne de l'émergence d'un mode de vie plus durable et actif dans la ville. Pour en savoir plus sur cet aspect,
+                # nous nous appuierons sur les données ouvertes fournies par la ville de Montréal entre 2019 et 2023 afin de mieux
+                # comprendre l'évolution temporelle et géographique de cette tendance ainsi que les variables qui y contribuent.
                 "paragraphe d'introduction",
                 className="introduction"
             ),
