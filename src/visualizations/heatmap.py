@@ -13,7 +13,7 @@ WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
 MONTH_POSITIONS = np.linspace(1.5, 50, 12)
 
 
-def heatmap(df):
+def get_heatmap(df):
     years_as_strings = [str(year) for year in YEARS]
     nb_years = len(YEARS)
 
@@ -29,9 +29,7 @@ def heatmap(df):
         year_heatmap(year_df, fig, year_index)
 
     add_color_scale(fig, df['nb_passages'].min(), df['nb_passages'].max())
-
-    fig_height = 150 * nb_years
-    update_layout(fig, fig_height)
+    update_layout(fig, nb_years)
 
     return fig
 
@@ -74,19 +72,19 @@ def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
         hoverinfo='skip',
     )
 
-    for date, dow, wkn in zip(year_df['date'], week_days, week_numbers):
+    for date, week_day, week_number in zip(year_df['date'], week_days, week_numbers):
         if date.day != 1:
             continue
 
-        year_heatmap += [go.Scatter(x=[wkn - 0.5, wkn - 0.5],
-                                    y=[dow - 0.5, 6.5], **month_lines)]
-        if dow:
+        year_heatmap += [go.Scatter(x=[week_number - 0.5, week_number - 0.5],
+                                    y=[week_day - 0.5, 6.5], **month_lines)]
+        if week_day:
             year_heatmap += [
                 go.Scatter(
-                    x=[wkn - 0.5, wkn + 0.5], y=[dow - 0.5, dow - 0.5], **month_lines
+                    x=[week_number - 0.5, week_number + 0.5], y=[week_day - 0.5, week_day - 0.5], **month_lines
                 ),
-                go.Scatter(x=[wkn + 0.5, wkn + 0.5],
-                           y=[dow - 0.5, -0.5], **month_lines),
+                go.Scatter(x=[week_number + 0.5, week_number + 0.5],
+                           y=[week_day - 0.5, -0.5], **month_lines),
             ]
 
 
@@ -107,9 +105,11 @@ def add_color_scale(fig, min_value, max_value):
     )
 
 
-def update_layout(fig, fig_height):
+def update_layout(fig, nb_years):
+    fig_height = nb_years * 150
     french_months = [month.capitalize()
                      for month in utils.MONTH_NAMES.values()]
+
     layout = go.Layout(
         xaxis=dict(
             showline=False,
@@ -130,7 +130,7 @@ def update_layout(fig, fig_height):
             autorange='reversed',
             fixedrange=True,
         ),
-        font=dict(size=10, color='#757575'),
+        font=dict(size=9, color='#757575'),
         plot_bgcolor=('#fff'),
         margin=dict(t=20, b=20),
         showlegend=False,
