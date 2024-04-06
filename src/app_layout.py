@@ -19,7 +19,8 @@ def get_app_layout(
         showTips=False,
         showAxisDragHandles=False,
         doubleClick=False,
-        displayModeBar=False
+        displayModeBar=False,
+        dragMode=False
     )
 
     return html.Div(className='content', children=[

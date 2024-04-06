@@ -21,7 +21,15 @@ def get_scatter_hover_template(label, x_unit):
         "<span>%{x}" + f" {x_unit}</span><br>"
     return hover_template
 
+'''
+La fonction suivante fait référence à l'info-bulle de l'horloge.
+'''
 
+def get_polar_chart_hover_template():
+    hover_template = "<b style='color: white;'>Heure : </b><span>%{theta}</span><br>"
+    hover_template += "<b style='color: white;'>Nombre de passages : </b><span>%{r:.0f}</span>"
+    hover_template += "<extra></extra>"  
+    return hover_template
 '''
 La fonction suivante fait référence à l'info-bulle de la moyenne des nuages de points.
 '''
