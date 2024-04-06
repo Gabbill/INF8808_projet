@@ -1,11 +1,20 @@
 import plotly.graph_objects as go
 
+'''
+
+La fonction suivante permet d'obtenir un Polar bar Chart  représentant l'achalandage moyen
+d'utilisation de vélo par heure au cours des quatre saisons à Montréal.
+
+'''
+
 
 def create_seasonal_polar_chart(df, season):
+    # Selection des données qui nous intéresse :
     seasonal_data = df[df['season'] == season]
 
     fig = go.Figure()
 
+    # Polar bar chart :
     fig.add_trace(go.Barpolar(
         r=seasonal_data['nb_passages'],
         theta=seasonal_data['heure'],
@@ -15,8 +24,12 @@ def create_seasonal_polar_chart(df, season):
         opacity=1
     ))
 
+    # Calcul de la valeur maximal des passages pour définir l'intervalle radial
     max_val = seasonal_data['nb_passages'].max()
+
+    # Configuration de la mise en page du graphique
     fig.update_layout(
+        # Paramètres des axes radials et angulaires
         polar=dict(
             radialaxis=dict(
                 visible=True,
@@ -33,6 +46,7 @@ def create_seasonal_polar_chart(df, season):
                 gridcolor='grey'
             )
         ),
+        # Options des paramètres de marges, polices et titre du Graphique
         margin=dict(l=40, r=40, t=40, b=40),
         font=dict(size=10, family='Roboto'),
         title=dict(
