@@ -7,10 +7,19 @@ import utils
 from plotly.subplots import make_subplots
 from hover_template import heatmap_hover_template
 
+
+# Définition des constantes utilisés( les années et journées )
 YEARS = [2019, 2020, 2021, 2022, 2023]
 WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
                    'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MONTH_POSITIONS = np.linspace(1.5, 50, 12)
+
+
+'''
+
+La fonction suivante va permettre de crée la HeatMap, elle utilise pour celà diffèrentes sous-fonctions qu'on verra plus bas :  
+
+'''
 
 
 def heatmap(df):
@@ -36,6 +45,15 @@ def heatmap(df):
     return fig
 
 
+'''
+
+Les fonctions suivantes vont permettre de générer les données nécessaires pour chaque sous-heatmap.
+On pourra alors ajouter les séparateurs de mois, les info-bulles ainsi que l'échelle de couleur.
+ 
+'''
+
+
+# Création d'une heatmap pour chaque année donnée
 def year_heatmap(year_df, fig, year_index):
     week_days = [date.weekday() for date in year_df['date']]
     week_numbers = year_df['date'].dt.strftime('%W').astype(int).tolist()
@@ -59,6 +77,7 @@ def year_heatmap(year_df, fig, year_index):
     add_year_heatmap(fig, year_heatmap, year_index)
 
 
+# Appel de la fonction d'info-bulle et Ajout des paramètres associées.
 def get_hover_info(year_df, week_days):
     return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
@@ -67,6 +86,7 @@ def get_hover_info(year_df, week_days):
             ) for index, row in year_df.iterrows()]
 
 
+# Ajout de séparateurs de mois dans le graphique.
 def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
     month_lines = dict(
         mode='lines',
@@ -90,6 +110,7 @@ def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
             ]
 
 
+# Ajout de chaque année au graphique du HeatMap
 def add_year_heatmap(fig, year_heatmap, year_index):
     fig.add_traces(
         year_heatmap,
@@ -98,6 +119,7 @@ def add_year_heatmap(fig, year_heatmap, year_index):
     )
 
 
+# Définition de l'echelle de couleur de la heatMap
 def add_color_scale(fig, min_value, max_value):
     fig.update_traces(
         zmin=min_value,
@@ -107,6 +129,7 @@ def add_color_scale(fig, min_value, max_value):
     )
 
 
+# Mise à jour de la mise en page du graphique :
 def update_layout(fig, fig_height):
     french_months = [month.capitalize()
                      for month in utils.MONTH_NAMES.values()]
