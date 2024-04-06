@@ -29,7 +29,7 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
     return set.intersection(*df_id_compteurs)
 
 
-# Visualisation 1
+# Visualisation 1 - HeatMap
 def get_daily_bike_count(bike_counts_df):
     df = bike_counts_df.groupby('date')['nb_passages'].sum().reset_index()
     df['date'] = pd.to_datetime(df['date'])
@@ -38,28 +38,31 @@ def get_daily_bike_count(bike_counts_df):
     return df
 
 
-# Visualisation 2
+# Visualisation 2 - Horloges d'achalandage
 def get_season(month):
     if month in [12, 1, 2]:
         return 'Hiver'
     elif month in [3, 4, 5]:
-        return 'Printemps' 
+        return 'Printemps'
     elif month in [6, 7, 8]:
-        return 'Été' 
+        return 'Été'
     elif month in [9, 10, 11]:
-        return 'Automne'  
+        return 'Automne'
+
 
 def get_hourly_bike_count(bike_counts_df):
     bike_counts_df['date'] = pd.to_datetime(bike_counts_df['date'])
-    bike_counts_df['season'] = bike_counts_df['date'].dt.month.apply(get_season)
+    bike_counts_df['season'] = bike_counts_df['date'].dt.month.apply(
+        get_season)
 
-    df = bike_counts_df.groupby(['heure', 'season'])['nb_passages'].sum().reset_index()
-    df['heure'] = pd.to_datetime(df['heure']).dt.strftime('%Hh') 
+    df = bike_counts_df.groupby(['heure', 'season'])[
+        'nb_passages'].sum().reset_index()
+    df['heure'] = pd.to_datetime(df['heure']).dt.strftime('%Hh')
     df = df.groupby(['heure', 'season'], as_index=False)['nb_passages'].sum()
     return df
 
 
-# Visualisation 3
+# Visualisation 3 - Carte
 def get_yearly_counters_count(bike_counts_df):
     bike_counts_df['Année'] = pd.to_datetime(bike_counts_df['date']).dt.year
     yearly_count = bike_counts_df.groupby(['id_compteur', 'longitude', 'latitude', 'Année'])[
@@ -75,7 +78,7 @@ def get_yearly_counters_count(bike_counts_df):
     return pd.merge(yearly_count, counters_locations_df, on='id_compteur', how='inner')
 
 
-# Visualisation 4
+# Visualisation 4 - Scatter Plot
 def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
     common_counters = get_common_counters_2019_to_2024(bike_counts_data_list)
     normalized_bike_counts = bike_counts_df[bike_counts_df['id_compteur'].isin(

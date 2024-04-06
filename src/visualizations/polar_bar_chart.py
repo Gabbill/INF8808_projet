@@ -1,7 +1,7 @@
 import plotly.graph_objects as go
 
 
-def create_seasonal_polar_chart(df, season):
+def get_seasonal_polar_chart(df, season):
     seasonal_data = df[df['season'] == season]
 
     fig = go.Figure()
