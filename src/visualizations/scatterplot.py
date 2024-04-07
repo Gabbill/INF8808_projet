@@ -58,8 +58,6 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
         yaxis=dict(showgrid=True, gridcolor='#E6E6E6'),
         plot_bgcolor='white',
         hoverlabel=dict(bgcolor='white'),
-        dragmode=False,
-
     )
 
     fig.update_traces(marker_color='#1f77b4', hovertemplate=hover_template)
