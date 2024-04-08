@@ -60,6 +60,7 @@ rain_scatter_plot = get_rain_figure(
 
 app = dash.Dash(__name__)
 app.title = 'Le vélo à Montréal'
+server = app.server
 
 # TODO: Ajouter toutes les figures (heatmap, horloge, map, température, neige, pluie)
 app.layout = get_app_layout(
