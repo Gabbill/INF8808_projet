@@ -5,8 +5,8 @@
    1. (Linux/MacOS) `source .venv/bin/activate`
    2. (Windows) `.venv\Scripts\activate`
 3. Installer les dépendances `pip install -r requirements.txt`
-4. Lancer l'application `python .\server.py`
+4. Lancer l'application `python .\src\server.py`
 
 ## Regénération des visualisations
 
-Regénérer les visualisations `python .\generate_visualizations.py`
+Regénérer les visualisations `python .\src\generate_visualizations.py`
