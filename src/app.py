@@ -33,7 +33,7 @@ daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
 # montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
 # Visualisation 1 - Heatmap
-get_heatmap = get_heatmap(daily_bike_count)
+heatmap = get_heatmap(daily_bike_count)
 
 # Visualisation 2 - Polar Bar Chart
 polar_bar_chart_winter = get_seasonal_polar_chart(
@@ -64,7 +64,7 @@ server = app.server
 
 # TODO: Ajouter toutes les figures (heatmap, horloge, map, température, neige, pluie)
 app.layout = get_app_layout(
-    get_heatmap,
+    heatmap,
     polar_bar_chart_winter,
     polar_bar_chart_spring,
     polar_bar_chart_summer,
