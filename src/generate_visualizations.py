@@ -35,7 +35,7 @@ polar_bar_chart_summer.write_json('json/polar_bar_chart_summer.json')
 polar_bar_chart_fall.write_json('json/polar_bar_chart_fall.json')
 
 # Visualisation 3 - Carte
-# TODO : insérer la visualisation ici et décommenté le code ici et dans app.py
+# TODO : insérer la visualisation ici et décommenter le code ici et dans app.py
 # map = TODO
 # map.write_json('json/map.json')
 

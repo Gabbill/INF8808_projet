@@ -33,7 +33,7 @@ polar_bar_chart_summer = plotly.io.read_json(
 polar_bar_chart_fall = plotly.io.read_json('json/polar_bar_chart_fall.json')
 
 # Read Visualisation 3 - Carte (assuming this is a Plotly figure)
-# TODO décommenté le code ci-dessous
+# TODO décommenter le code ci-dessous
 # map = plotly.io.read_json('json/map.json')
 map = 0  # TODO à retirer
 
