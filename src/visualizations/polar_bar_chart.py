@@ -3,19 +3,19 @@ import hover_template
 
 '''
 
-La fonction suivante permet d'obtenir un Polar bar Chart  représentant l'achalandage moyen
+La fonction suivante permet d'obtenir un polar bar chart représentant l'achalandage moyen
 d'utilisation de vélo par heure au cours des quatre saisons à Montréal.
 
 '''
 
 
 def get_seasonal_polar_chart(df, season):
-    # Selection des données qui nous intéresse :
+    # Récupération des données liées à la saison
     seasonal_data = df[df['season'] == season]
 
     fig = go.Figure()
 
-    # Polar bar chart :
+    # Polar bar chart
     fig.add_trace(go.Barpolar(
         r=seasonal_data['nb_passages'],
         theta=seasonal_data['heure'],
@@ -26,12 +26,12 @@ def get_seasonal_polar_chart(df, season):
         hovertemplate=hover_template.get_polar_chart_hover_template()
     ))
 
-    # Calcul de la valeur maximal des passages pour définir l'intervalle radial
+    # Calcul de la valeur maximal des passages pour définir l'intervalle radiale
     max_val = seasonal_data['nb_passages'].max()
 
     # Configuration de la mise en page du graphique
     fig.update_layout(
-        # Paramètres des axes radials et angulaires
+        # Paramètres des axes radiale et angulaire
         polar=dict(
             radialaxis=dict(
                 range=[0, max_val + max_val * 0.1],
@@ -50,7 +50,7 @@ def get_seasonal_polar_chart(df, season):
                 tickfont=dict(size=12, color='black', family='Roboto')
             )
         ),
-        # Options des paramètres de marges, polices et titre du Graphique
+        # Options des paramètres de marges, polices et titre du graphique
         margin=dict(l=40, r=40, t=40, b=40),
         font=dict(size=10, family='Roboto'),
         title=dict(

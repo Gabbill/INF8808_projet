@@ -1,5 +1,5 @@
 '''
-La fonction suivante fait référence à l'info-bulle de la HeatMap.
+La fonction suivante fait référence à l'info-bulle de la Heatmap.
 '''
 
 

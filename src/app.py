@@ -32,7 +32,7 @@ daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
 
 # montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
-# Visualisation 1 - HeatMap
+# Visualisation 1 - Heatmap
 get_heatmap = get_heatmap(daily_bike_count)
 
 # Visualisation 2 - Polar Bar Chart
