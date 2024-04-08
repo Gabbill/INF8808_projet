@@ -17,7 +17,7 @@ import preprocess
 from app_layout import get_app_layout
 from visualizations.polar_bar_chart import get_seasonal_polar_chart
 from visualizations.heatmap import get_heatmap
-from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
+from visualizations.scatter_plot import get_rain_figure, get_snow_figure, get_temperature_figure
 
 
 # Récupération des données
@@ -54,7 +54,6 @@ snow_scatter_plot = get_snow_figure(
     daily_bike_count_with_weather.copy(deep=True))
 rain_scatter_plot = get_rain_figure(
     daily_bike_count_with_weather.copy(deep=True))
-
 
 #######
 

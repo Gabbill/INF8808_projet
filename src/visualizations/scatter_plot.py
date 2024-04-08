@@ -1,6 +1,7 @@
 import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
+import utils
 
 from hover_template import get_mean_scatter_hover_template, get_scatter_hover_template
 
@@ -42,12 +43,16 @@ On pourra l'utiliser ensuite directement pour choisir la variable à représente
 '''
 
 
-def get_scatterplot_figure(data, x_column, x_title, hover_template):
+def get_scatterplot_figure(data, col, xaxis_title, hover_template):
+    mean_trace = None
+
     # Trace de la moyenne dans le cas de neige ou pluie
-    mean_trace = add_mean_trace(data, x_column)
+    if col in ['Total Rain (mm)', 'Total Snow (cm)']:
+        mean_trace = add_mean_trace(data, col)
+        data = data[data[col] != 0]
 
     # Nuage de Points
-    fig = px.scatter(data, x=x_column, y='nb_passages',
+    fig = px.scatter(data, x=col, y='nb_passages',
                      custom_data=['formatted_date_x'])
 
     axis_layout = dict(
@@ -57,8 +62,8 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
     )
 
     fig.update_layout(
-        xaxis_title=x_title,
-        yaxis_title='Nombre de passages (milliers)',
+        xaxis_title=xaxis_title,
+        yaxis_title='Nombre de passages',
         font=dict(size=12, color='black', family='Roboto'),
         xaxis=axis_layout,
         yaxis=axis_layout,
@@ -91,20 +96,17 @@ moyenne des passages quand la quantité des précipitations est égale à 0.
 '''
 
 
-def add_mean_trace(data, x_column):
-    if x_column not in ['Total Rain (mm)', 'Total Snow (cm)']:
-        return
-
+def add_mean_trace(data, col):
     # Traitement des données et normalisation des valeurs de précipitations égales à 0 par leurs moyenne pour une meilleur lisibilité
-    mean_nb_passages_zero = data.loc[data[x_column]
-                                     == 0, 'nb_passages'].mean()
-    data.loc[data[x_column] == 0, 'nb_passages'] = mean_nb_passages_zero
-    x_values = np.linspace(data[x_column].min(), data[x_column].max(), 100)
+    mean_nb_passages_zero = int(data.loc[data[col] == 0, 'nb_passages'].mean())
+
+    data.loc[data[col] == 0, 'nb_passages'] = mean_nb_passages_zero
+    x_values = np.linspace(data[col].min(), data[col].max(), 100)
     y_values = np.full_like(x_values, mean_nb_passages_zero)
 
     # Mise à jour des informations de la droite de moyenne
     x_info, x_unit = (
-        'Pluie', 'mm') if x_column == 'Total Rain (mm)' else ('Neige', 'cm')
+        'Pluie', 'mm') if col == 'Total Rain (mm)' else ('Neige', 'cm')
 
     # Traçage de la droite de points horizontale
     return go.Scatter(

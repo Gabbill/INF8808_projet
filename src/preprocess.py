@@ -5,7 +5,8 @@ import utils
 
 '''
 
-Les fonctions suivantes permettent de charger les diffèrentes bases de données utilisés dans notre projet.
+Les fonctions suivantes permettent de charger les diverses données utilisées 
+au sein de notre projet.
 
 '''
 
@@ -44,7 +45,8 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
 
 '''
 
-Les fonctions suivantes sont utilisés dans le pre-process de chaque visualisation.
+Les fonctions suivantes sont utilisées pour l'obtention des données nécessaires
+à chaque visualisation
 
 '''
 
