@@ -113,7 +113,7 @@ def add_mean_trace(data, col):
         x=x_values,
         y=y_values,
         mode='lines',
-        line=dict(color='#9E9E9E', dash='dash'),
+        line=dict(color='black', dash='dash'),
         showlegend=True,
         name=f'Moyenne des passages à 0 {x_unit}',
         hovertemplate=get_mean_scatter_hover_template(

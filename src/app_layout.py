@@ -228,7 +228,7 @@ def get_app_layout(
                 config=figure_config
             ),
             html.P("La moyenne des passages à vélo lorsqu'aucune neige ne tombe \
-                (représentée par le trait pointillé horizontal gris) est de \
+                (représentée par le trait pointillé horizontal) est de \
                 31 164 passages. Comparativement à ce nombre, la grande majorité\
                 des journées présentent un faible achalandage lorsqu'il neige à \
                 Montréal, indiquant ainsi la forte influence qu'a la neige tombante \
