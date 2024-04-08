@@ -111,7 +111,7 @@ def get_app_layout(
                 présente le plus fort achalandage, comparativement aux autres \
                 années. De plus, selon Valérie Plante, la mairesse de Montréal, \
                 les déplacements à vélo connaissent une hausse de 20%% entre 2020 \
-                et 2021"),
+                et 2021."),
 
 
             html.H2(
