@@ -15,10 +15,8 @@ def get_app_layout(
 ):
 
     figure_config = dict(
-        scrollZoom=False,
         showTips=False,
         showAxisDragHandles=False,
-        doubleClick=False,
         displayModeBar=False,
         dragMode=False
     )

@@ -50,12 +50,18 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
     fig = px.scatter(data, x=x_column, y='nb_passages',
                      custom_data=['formatted_date_x'])
 
+    axis_layout = dict(
+        showgrid=True,
+        gridcolor='#E6E6E6',
+        zerolinecolor='#E6E6E6'
+    )
+
     fig.update_layout(
         xaxis_title=x_title,
         yaxis_title='Nombre de passages (milliers)',
         font=dict(size=12, color='black', family='Roboto'),
-        xaxis=dict(showgrid=True, gridcolor='#E6E6E6'),
-        yaxis=dict(showgrid=True, gridcolor='#E6E6E6'),
+        xaxis=axis_layout,
+        yaxis=axis_layout,
         plot_bgcolor='white',
         hoverlabel=dict(bgcolor='white'),
     )
@@ -66,10 +72,10 @@ def get_scatterplot_figure(data, x_column, x_title, hover_template):
     if mean_trace:
         fig.add_trace(mean_trace)
         fig.update_layout(legend=dict(
-            orientation="h",
-            yanchor="bottom",
+            orientation='h',
+            yanchor='bottom',
             y=1.02,
-            xanchor="right",
+            xanchor='right',
             x=1
         ))
 
@@ -86,7 +92,7 @@ moyenne des passages quand la quantité des précipitations est égale à 0.
 
 
 def add_mean_trace(data, x_column):
-    if x_column not in ["Total Rain (mm)", "Total Snow (cm)"]:
+    if x_column not in ['Total Rain (mm)', 'Total Snow (cm)']:
         return
 
     # Traitement des données et normalisation des valeurs de précipitations égales à 0 par leurs moyenne pour une meilleur lisibilité
@@ -98,7 +104,7 @@ def add_mean_trace(data, x_column):
 
     # Mise à jour des informations de la droite de moyenne
     x_info, x_unit = (
-        "Pluie", "mm") if x_column == "Total Rain (mm)" else ("Neige", "cm")
+        'Pluie', 'mm') if x_column == 'Total Rain (mm)' else ('Neige', 'cm')
 
     # Traçage de la droite de points horizontale
     return go.Scatter(
@@ -107,9 +113,9 @@ def add_mean_trace(data, x_column):
         mode='lines',
         line=dict(color='#9E9E9E', dash='dash'),
         showlegend=True,
-        name=f"Moyenne des passages à 0 {x_unit}",
+        name=f'Moyenne des passages à 0 {x_unit}',
         hovertemplate=get_mean_scatter_hover_template(
             mean_nb_passages_zero, x_info, x_unit),
-        hoverlabel=dict(bgcolor="#EDEDED",
-                        font=dict(color="#7E7E7E")),
+        hoverlabel=dict(bgcolor='#EDEDED',
+                        font=dict(color='#7E7E7E')),
     )

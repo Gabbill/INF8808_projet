@@ -36,7 +36,8 @@ def get_seasonal_polar_chart(df, season):
             radialaxis=dict(
                 range=[0, max_val + max_val * 0.1],
                 gridcolor='#B6BFC7',
-                tickfont=dict(size=10, color='black', family='Roboto')
+                tickfont=dict(size=10, color='black', family='Roboto'),
+                linecolor='#B6BFC7',
             ),
             angularaxis=dict(
                 tickmode='array',
