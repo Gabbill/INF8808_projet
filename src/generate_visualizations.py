@@ -2,7 +2,7 @@ import preprocess
 
 from visualizations.polar_bar_chart import get_seasonal_polar_chart
 from visualizations.heatmap import get_heatmap
-from visualizations.scatterplot import get_rain_figure, get_snow_figure, get_temperature_figure
+from visualizations.scatter_plot import get_rain_figure, get_snow_figure, get_temperature_figure
 
 
 # Récupération des données
