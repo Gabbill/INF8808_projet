@@ -8,6 +8,7 @@ colors = ['#E55137', '#1F77B4', '#D247C4', '#EECA48', '#31C0B7', '#37C031']
 
 
 def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, list]):
+    yearly_counters_count['passages_per_day'] = yearly_counters_count['nb_passages'] / 365
     years = yearly_counters_count['Année'].unique()
     color_discrete_map = {
         str(years[i]): colors[i] for i in range(len(years))
@@ -24,7 +25,7 @@ def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, l
         color_discrete_map=color_discrete_map,
         opacity=0.85,
         labels={'color': 'Année d\'implantation'},
-        custom_data=['Annee_implante'],
+        custom_data=['Annee_implante', 'passages_per_day'],
     )
     fig.update_traces(
         mode='markers',
