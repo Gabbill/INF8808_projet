@@ -27,10 +27,10 @@ La fonciton suivante fait référence à l'info-bulle de la carte.
 
 
 def get_map_hover_template():
-    hover_template = "<b style='color: #1f77b4;'>Année d'implantation : </b><span>%{customdata[0]}</span><br>"
-    hover_template += "<b style='color: #1f77b4;'>Nombre de passages : </b><span>%{marker.size}</span><br>"
-    hover_template += "<b style='color: #1f77b4;'>Latitude : </b><span>%{lat}</span><br>"
-    hover_template += "<b style='color: #1f77b4;'>Longitude : </b><span>%{lon}</span>"
+    hover_template = "<b style='color: rgba(18,87,25,0.8);'>Année d'implantation : </b><span>%{customdata[0]}</span><br>"
+    hover_template += "<b style='color: rgba(18,87,25,0.8);'>Nombre de passages : </b><span>%{marker.size}</span><br>"
+    hover_template += "<b style='color: rgba(18,87,25,0.8);'>Latitude : </b><span>%{lat}</span><br>"
+    hover_template += "<b style='color: rgba(18,87,25,0.8);'>Longitude : </b><span>%{lon}</span>"
     hover_template += "<extra></extra>"
     return hover_template
 
