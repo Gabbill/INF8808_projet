@@ -127,6 +127,8 @@ def get_yearly_counters_count(bike_counts_df):
                 counters_locations_df.loc[len(counters_locations_df)] = [compteur_id, compteurs['longitude'].values[0],
                                                                          compteurs['latitude'].values[0], year, 0, compteurs['Annee_implante'].values[0]]
 
+    counters_locations_df['passages_par_jour'] = counters_locations_df['nb_passages'] / 365
+
     return counters_locations_df
 
 

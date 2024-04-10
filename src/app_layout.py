@@ -1,17 +1,18 @@
 from dash import html
 from dash import dcc
+from plotly.graph_objects import Figure
 
 
 def get_app_layout(
-    heatmap,
-    polar_bar_chart_winter,
-    polar_bar_chart_spring,
-    polar_bar_chart_summer,
-    polar_bar_chart_fall,
-    map,
-    temperature_scatter_plot,
-    snow_scatter_plot,
-    rain_scatter_plot
+    heatmap: Figure,
+    polar_bar_chart_winter: Figure,
+    polar_bar_chart_spring: Figure,
+    polar_bar_chart_summer: Figure,
+    polar_bar_chart_fall: Figure,
+    map: Figure,
+    temperature_scatter_plot: Figure,
+    snow_scatter_plot: Figure,
+    rain_scatter_plot: Figure
 ):
 
     figure_config = dict(

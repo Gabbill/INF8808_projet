@@ -1,5 +1,7 @@
 import plotly.graph_objects as go
-import hover_template
+
+from hover_template import get_polar_chart_hover_template
+from pandas import DataFrame
 
 '''
 
@@ -9,7 +11,7 @@ d'utilisation de vélo par heure au cours des quatre saisons à Montréal.
 '''
 
 
-def get_seasonal_polar_chart(df, season):
+def get_seasonal_polar_chart(df: DataFrame, season: str):
     # Récupération des données liées à la saison
     seasonal_data = df[df['season'] == season]
 
@@ -23,7 +25,7 @@ def get_seasonal_polar_chart(df, season):
         marker_line_color='#80878C',
         marker_line_width=1,
         opacity=1,
-        hovertemplate=hover_template.get_polar_chart_hover_template()
+        hovertemplate=get_polar_chart_hover_template()
     ))
 
     # Calcul de la valeur maximal des passages pour définir l'intervalle radiale

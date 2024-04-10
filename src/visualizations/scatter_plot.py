@@ -1,9 +1,9 @@
 import plotly.graph_objects as go
 import plotly.express as px
 import numpy as np
-import utils
 
 from hover_template import get_mean_scatter_hover_template, get_scatter_hover_template
+from pandas import DataFrame
 
 
 '''
@@ -15,24 +15,24 @@ de la température, de la neige et de la pluie.
 
 
 # Visualisation de la température
-def get_temperature_figure(data):
+def get_temperature_figure(df: DataFrame):
     hover_template_temperature = get_scatter_hover_template(
         'Température', '°C')
-    return get_scatterplot_figure(data, 'Mean Temp (°C)', 'Température moyenne (°C)', hover_template_temperature)
+    return get_scatterplot_figure(df, 'Mean Temp (°C)', 'Température moyenne (°C)', hover_template_temperature)
 
 
 # Visualisation de la neige
-def get_snow_figure(data):
+def get_snow_figure(df: DataFrame):
     hover_template_neige = get_scatter_hover_template(
         'Quantité de neige', 'cm')
-    return get_scatterplot_figure(data, 'Total Snow (cm)', 'Quantité de neige (cm)', hover_template_neige)
+    return get_scatterplot_figure(df, 'Total Snow (cm)', 'Quantité de neige (cm)', hover_template_neige)
 
 
 # Visualisation de la pluie
-def get_rain_figure(data):
+def get_rain_figure(df: DataFrame):
     hover_template_pluie = get_scatter_hover_template(
         'Quantité de pluie', 'mm')
-    return get_scatterplot_figure(data, 'Total Rain (mm)', 'Quantité de pluie (mm)', hover_template_pluie)
+    return get_scatterplot_figure(df, 'Total Rain (mm)', 'Quantité de pluie (mm)', hover_template_pluie)
 
 
 '''
@@ -43,16 +43,16 @@ On pourra l'utiliser ensuite directement pour choisir la variable à représente
 '''
 
 
-def get_scatterplot_figure(data, col, xaxis_title, hover_template):
+def get_scatterplot_figure(df: DataFrame, col: str, xaxis_title: str, hover_template: str):
     mean_trace = None
 
     # Trace de la moyenne dans le cas de neige ou pluie
     if col in ['Total Rain (mm)', 'Total Snow (cm)']:
-        mean_trace = add_mean_trace(data, col)
-        data = data[data[col] != 0]
+        mean_trace = add_mean_trace(df, col)
+        df = df[df[col] != 0]
 
     # Nuage de Points
-    fig = px.scatter(data, x=col, y='nb_passages',
+    fig = px.scatter(df, x=col, y='nb_passages',
                      custom_data=['formatted_date_x'])
 
     axis_layout = dict(
@@ -96,12 +96,12 @@ moyenne des passages quand la quantité des précipitations est égale à 0.
 '''
 
 
-def add_mean_trace(data, col):
+def add_mean_trace(df: DataFrame, col: str):
     # Traitement des données et normalisation des valeurs de précipitations égales à 0 par leurs moyenne pour une meilleur lisibilité
-    mean_nb_passages_zero = int(data.loc[data[col] == 0, 'nb_passages'].mean())
+    mean_nb_passages_zero = int(df.loc[df[col] == 0, 'nb_passages'].mean())
 
-    data.loc[data[col] == 0, 'nb_passages'] = mean_nb_passages_zero
-    x_values = np.linspace(data[col].min(), data[col].max(), 100)
+    df.loc[df[col] == 0, 'nb_passages'] = mean_nb_passages_zero
+    x_values = np.linspace(df[col].min(), df[col].max(), 100)
     y_values = np.full_like(x_values, mean_nb_passages_zero)
 
     # Mise à jour des informations de la droite de moyenne

@@ -6,6 +6,7 @@ import utils
 
 from plotly.subplots import make_subplots
 from hover_template import heatmap_hover_template
+from pandas import DataFrame
 
 
 # Définition des constantes utilisées
@@ -22,7 +23,7 @@ La fonction suivante permet de créer la Heatmap de 2019 à 2023
 '''
 
 
-def get_heatmap(df):
+def get_heatmap(df: DataFrame):
     years_as_strings = [str(year) for year in YEARS]
     nb_years = len(YEARS)
 
@@ -52,7 +53,7 @@ On pourra alors ajouter les séparateurs de mois, les info-bulles ainsi que l'é
 
 
 # Création d'une heatmap pour chaque année donnée
-def year_heatmap(year_df, fig, year_index):
+def year_heatmap(year_df: DataFrame, fig: go.Figure, year_index: int):
     week_days = [date.weekday() for date in year_df['date']]
     week_numbers = year_df['date'].dt.strftime('%W').astype(int).tolist()
 
@@ -76,7 +77,7 @@ def year_heatmap(year_df, fig, year_index):
 
 
 # Info-bulles de chaque jour de l'année
-def get_hover_info(year_df, week_days):
+def get_hover_info(year_df: DataFrame, week_days: list[str]):
     return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
             row['formatted_date'],
@@ -85,7 +86,7 @@ def get_hover_info(year_df, week_days):
 
 
 # Ajout de séparateurs de mois dans le graphique
-def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
+def add_month_separators(year_heatmap: list[go.Heatmap], year_df: DataFrame, week_days: list[str], week_numbers: list[int]):
     month_lines = dict(
         mode='lines',
         line=dict(color='#000000', width=2),
@@ -109,7 +110,7 @@ def add_month_separators(year_heatmap, year_df, week_days, week_numbers):
 
 
 # Ajout d'une heatmap annuelle à la figure
-def add_year_heatmap(fig, year_heatmap, year_index):
+def add_year_heatmap(fig: go.Figure, year_heatmap: list[go.Heatmap, go.Scatter], year_index: int):
     fig.add_traces(
         year_heatmap,
         rows=[(year_index + 1)] * len(year_heatmap),
@@ -118,7 +119,7 @@ def add_year_heatmap(fig, year_heatmap, year_index):
 
 
 # Définition de l'échelle de couleur de la heatmap
-def add_color_scale(fig, min_value, max_value):
+def add_color_scale(fig: go.Figure, min_value: int, max_value: int):
     fig.update_traces(
         zmin=min_value,
         zmax=max_value,
@@ -128,7 +129,7 @@ def add_color_scale(fig, min_value, max_value):
 
 
 # Mise à jour de la mise en page de la figure
-def update_layout(fig, nb_years):
+def update_layout(fig: go.Figure, nb_years: int):
     fig_height = nb_years * 150
     french_months = [month.capitalize()
                      for month in utils.MONTH_NAMES.values()]
