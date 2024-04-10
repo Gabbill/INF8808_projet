@@ -1,6 +1,7 @@
 import pandas as pd
 import geopandas as gpd
 import utils
+import shapely.geometry
 
 
 '''
@@ -28,7 +29,21 @@ def load_counters_locations():
 
 # Chargement des données des pistes cyclables
 def load_montreal_bike_paths():
-    return gpd.read_file('assets/data/reseau_cyclable.geojson')
+    montreal_bike_paths = gpd.read_file('assets/data/reseau_cyclable.geojson')
+    lats = []
+    lons = []
+    for feature, name in zip(montreal_bike_paths.geometry, montreal_bike_paths.NOM_ARR_VILLE_DESC):
+        if not isinstance(feature, shapely.geometry.linestring.LineString):
+            continue
+
+        linestrings = [feature]
+
+        for linestring in linestrings:
+            x, y = linestring.xy
+            # None to create a gap in the line
+            lats.extend(y.tolist() + [None])
+            lons.extend(x.tolist() + [None])
+    return lats, lons
 
 
 # Combinaison des diverses données de comptages de vélos
@@ -101,7 +116,18 @@ def get_yearly_counters_count(bike_counts_df):
     counters_locations_df['Annee_implante'] = counters_locations_df['Annee_implante'].astype(
         str)
 
-    return pd.merge(yearly_count, counters_locations_df, on='id_compteur', how='inner')
+    counters_locations_df = pd.merge(
+        yearly_count, counters_locations_df, on='id_compteur', how='inner')
+
+    years = counters_locations_df['Année'].unique()
+    for compteur_id in counters_locations_df['id_compteur'].unique():
+        compteurs = counters_locations_df[counters_locations_df['id_compteur'] == compteur_id]
+        for year in years:
+            if year not in compteurs['Année'].values:
+                counters_locations_df.loc[len(counters_locations_df)] = [compteur_id, compteurs['longitude'].values[0],
+                                                                         compteurs['latitude'].values[0], year, 0, compteurs['Annee_implante'].values[0]]
+
+    return counters_locations_df
 
 
 # Visualisation 4 : Scatter plot
