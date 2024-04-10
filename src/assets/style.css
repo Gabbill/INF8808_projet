@@ -1,0 +1,84 @@
+html {
+  background-color: rgb(241, 241, 241);
+}
+
+header,
+main {
+  font-family: "Roboto";
+  margin: 0 15em;
+  background-color: white;
+}
+
+body {
+  margin: 0;
+}
+
+h2 {
+  margin: 3em 0 0.2em 0;
+}
+
+p,
+span {
+  text-align: justify;
+}
+
+#heatmap {
+  height: 90vh;
+}
+
+.introduction {
+  margin-top: 3em;
+}
+
+.introduction + h2 {
+  margin-top: 2em;
+}
+
+.page-container {
+  display: flex;
+  flex-direction: column;
+  padding: 1em 3em;
+}
+
+.polar-bar-charts-container {
+  display: flex;
+  flex-wrap: wrap;
+  height: 95vh;
+}
+
+.polar-bar-charts-container .dash-graph {
+  flex: 0 0 50%;
+  height: 50%;
+}
+
+.shortcuts {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 13em;
+  padding: 0.5em;
+}
+
+.shortcuts ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+.shortcuts ul li {
+  padding: 1em 0;
+}
+
+.shortcuts ul li a {
+  text-decoration: none;
+  color: rgb(103, 103, 103);
+  font-size: 0.7em;
+}
+
+.shortcuts ul li a:hover {
+  font-weight: bold;
+}
+
+.shortcuts ul li ul li {
+  padding: 0.5em 0 0 1em;
+}
