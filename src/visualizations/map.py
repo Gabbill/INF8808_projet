@@ -11,8 +11,8 @@ def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, l
     color_discrete_map = {
         str(years[i]): colors[i] for i in range(len(years))
     }
-
-    compteurs = px.scatter_mapbox(
+    # Ajout des compteurs
+    fig = px.scatter_mapbox(
         yearly_counters_count,
         animation_frame='Année',
         animation_group='Annee_implante',
@@ -25,7 +25,7 @@ def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, l
         labels={'color': 'Année d\'implantation'},
         custom_data=['Annee_implante'],
     )
-    compteurs.update_traces(
+    fig.update_traces(
         mode='markers',
         marker=dict(sizemin=6),
         hovertemplate=hover_template.get_map_hover_template(),
@@ -34,14 +34,15 @@ def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, l
             bordercolor="black",
         )
     )
-    for frame in compteurs.frames:
+    # Permet de garder le template de l'info-bulle pour chaque frame
+    for frame in fig.frames:
         for data in frame.data:
             data.hovertemplate = hover_template.get_map_hover_template()
             data.hoverlabel = dict(
                 bgcolor="white",
                 bordercolor="black",
             )
-    compteurs.update_layout(
+    fig.update_layout(
         mapbox_style='carto-positron',
         mapbox_zoom=10,
         mapbox_center={'lat': np.mean([lat for lat in yearly_counters_count["latitude"] if lat is not None]),
@@ -49,6 +50,7 @@ def get_map(yearly_counters_count: DataFrame, montreal_bike_paths: tuple[list, l
         showlegend=True,
         legend_title_text="Année d'implémentation des compteurs",
     )
-    compteurs.add_scattermapbox(lat=montreal_bike_paths[0], lon=montreal_bike_paths[1], mode='lines', line=dict(
+    # Ajout des pistes cyclables
+    fig.add_scattermapbox(lat=montreal_bike_paths[0], lon=montreal_bike_paths[1], mode='lines', line=dict(
         color='rgba(18,87,25,0.6)'), hoverinfo='skip', name='Pistes cyclables')
-    return compteurs
+    return fig
