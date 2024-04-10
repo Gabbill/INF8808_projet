@@ -1,5 +1,6 @@
 import preprocess
 
+from visualizations.map import get_map
 from visualizations.polar_bar_chart import get_seasonal_polar_chart
 from visualizations.heatmap import get_heatmap
 from visualizations.scatter_plot import get_rain_figure, get_snow_figure, get_temperature_figure
@@ -15,7 +16,7 @@ yearly_counters_count = preprocess.get_yearly_counters_count(bike_counts_df)
 daily_bike_count_with_weather = preprocess.get_daily_bike_count_with_weather(
     bike_counts_data_list, bike_counts_df)
 
-# montreal_bike_paths = preprocess.load_montreal_bike_paths()
+montreal_bike_paths = preprocess.load_montreal_bike_paths()
 
 # Visualisation 1 - Heatmap
 heatmap = get_heatmap(daily_bike_count)
@@ -35,9 +36,8 @@ polar_bar_chart_summer.write_json('json/polar_bar_chart_summer.json')
 polar_bar_chart_fall.write_json('json/polar_bar_chart_fall.json')
 
 # Visualisation 3 - Carte
-# TODO : insérer la visualisation ici et décommenter le code ici et dans app.py
-# map = TODO
-# map.write_json('json/map.json')
+map = get_map(yearly_counters_count, montreal_bike_paths)
+map.write_json('json/map.json')
 
 # Visualisation 4 - Scatter Plot
 temperature_scatter_plot = get_temperature_figure(

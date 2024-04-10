@@ -32,10 +32,8 @@ polar_bar_chart_summer = plotly.io.read_json(
     'json/polar_bar_chart_summer.json')
 polar_bar_chart_fall = plotly.io.read_json('json/polar_bar_chart_fall.json')
 
-# Read Visualisation 3 - Carte (assuming this is a Plotly figure)
-# TODO décommenter le code ci-dessous
-# map = plotly.io.read_json('json/map.json')
-map = 0  # TODO à retirer
+# Read Visualisation 3 - Mapbox
+map = plotly.io.read_json('json/map.json')
 
 # Read Visualisation 4 - Scatter Plots
 temperature_scatter_plot = plotly.io.read_json(

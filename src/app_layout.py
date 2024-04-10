@@ -163,7 +163,8 @@ def get_app_layout(
             dcc.Graph(
                 figure=map,
                 id='map',
-                config=figure_config
+                config=figure_config,
+                style={'height': '700px'}
             ),
             html.P("Une présence accrue des compteurs de vélo ainsi que \
                 des pistes cyclables est constatée dans les environs de \

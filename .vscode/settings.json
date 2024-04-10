@@ -1,12 +1,10 @@
 {
-  "editor.rulers": [
-    80
-  ],
+  "editor.rulers": [80],
   "python.defaultInterpreterPath": "/usr/bin/python",
   "editor.formatOnSave": true,
   "editor.renderWhitespace": "all",
   "[python]": {
-    "editor.defaultFormatter": "ms-python.autopep8",
+    "editor.defaultFormatter": "ms-python.autopep8"
   },
   "[json]": {
     "editor.defaultFormatter": "vscode.json-language-features",
@@ -15,4 +13,5 @@
     },
     "editor.suggest.insertMode": "replace"
   },
+  "python.analysis.extraPaths": ["./src/markups"]
 }
