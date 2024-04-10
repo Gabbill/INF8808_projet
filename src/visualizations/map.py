@@ -17,7 +17,6 @@ des pistes cyclables de 2019 à 2024.
 def get_map(df: DataFrame, montreal_bike_paths: tuple[list, list]):
     fig = add_bike_counters(df)
     fig = add_bike_paths(fig, montreal_bike_paths)
-
     return fig
 
 
@@ -77,6 +76,9 @@ def add_bike_paths(fig: go.Figure, montreal_bike_paths: tuple[list, list]):
 
     # Réorganisation des traces pour que les pistes cyclables soient en dessous
     fig.data = [fig.data[-1]] + list(fig.data[:-1])
+
+    # Modification du préfixe du slider
+    fig['layout']['sliders'][0]['currentvalue']['prefix'] = 'Année affichée : '
 
     return fig
 

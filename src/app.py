@@ -20,10 +20,10 @@ app = dash.Dash(__name__)
 app.title = 'Le vélo à Montréal'
 server = app.server
 
-# Read Visualisation 1 - Heatmap
+# Lecture de la visualisation 1 (Heatmap)
 heatmap = plotly.io.read_json('json/heatmap.json')
 
-# Read Visualisation 2 - Polar Bar Charts
+# Lecture de la visualisation 2 (Polar Bar Charts)
 polar_bar_chart_winter = plotly.io.read_json(
     'json/polar_bar_chart_winter.json')
 polar_bar_chart_spring = plotly.io.read_json(
@@ -32,10 +32,10 @@ polar_bar_chart_summer = plotly.io.read_json(
     'json/polar_bar_chart_summer.json')
 polar_bar_chart_fall = plotly.io.read_json('json/polar_bar_chart_fall.json')
 
-# Read Visualisation 3 - Mapbox
+# Lecture de la visualisation 3 (Mapbox)
 map = plotly.io.read_json('json/map.json')
 
-# Read Visualisation 4 - Scatter Plots
+# Lecture de la visualisation 4 (Scatter Plots)
 temperature_scatter_plot = plotly.io.read_json(
     'json/temperature_scatter_plot.json')
 snow_scatter_plot = plotly.io.read_json('json/snow_scatter_plot.json')
