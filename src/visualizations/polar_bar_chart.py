@@ -4,10 +4,8 @@ from hover_template import get_polar_chart_hover_template
 from pandas import DataFrame
 
 '''
-
 La fonction suivante permet d'obtenir un polar bar chart représentant l'achalandage moyen
 d'utilisation de vélo par heure au cours des quatre saisons à Montréal.
-
 '''
 
 

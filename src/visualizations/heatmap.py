@@ -17,9 +17,7 @@ MONTH_POSITIONS = np.linspace(1.5, 50, 12)
 
 
 '''
-
 La fonction suivante permet de créer la Heatmap de 2019 à 2023 
-
 '''
 
 
@@ -45,10 +43,8 @@ def get_heatmap(df: DataFrame):
 
 
 '''
-
 Les fonctions suivantes permettent de générer les données nécessaires pour heatmap associée à une année.
-On pourra alors ajouter les séparateurs de mois, les info-bulles ainsi que l'échelle de couleur.
-
+Elles permettent notamment d'ajouter les séparateurs de mois, les info-bulles ainsi que l'échelle de couleur.
 '''
 
 

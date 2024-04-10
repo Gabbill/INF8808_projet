@@ -7,10 +7,8 @@ from pandas import DataFrame
 
 
 '''
-
 Chacune des fonctions suivantes permet d'obtenir le nuages de points
 de la température, de la neige et de la pluie.
-
 '''
 
 
@@ -36,10 +34,8 @@ def get_rain_figure(df: DataFrame):
 
 
 '''
-
 La fonction suivante permet de tracer les différents nuages de points.
 On pourra l'utiliser ensuite directement pour choisir la variable à représenter.
-
 '''
 
 
@@ -88,11 +84,9 @@ def get_scatterplot_figure(df: DataFrame, col: str, xaxis_title: str, hover_temp
 
 
 '''
-
 Dans le cas de graphique représentant la neige ou la pluie,
 la fonction suivante trace un trait horizontale qui montre la
-moyenne des passages quand la quantité des précipitations est égale à 0.
-
+moyenne des passages quand la quantité des précipitations est égale à 0.s
 '''
 
 

@@ -5,10 +5,8 @@ import shapely.geometry
 
 
 '''
-
 Les fonctions suivantes permettent de charger les diverses données utilisées 
 au sein de notre projet.
-
 '''
 
 
@@ -59,10 +57,8 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
 
 
 '''
-
 Les fonctions suivantes sont utilisées pour l'obtention des données nécessaires
 à chaque visualisation
-
 '''
 
 
