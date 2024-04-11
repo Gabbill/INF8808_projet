@@ -6,40 +6,37 @@ from hover_template import get_mean_scatter_hover_template, get_scatter_hover_te
 from pandas import DataFrame
 
 
-'''
-Chacune des fonctions suivantes permet d'obtenir le nuages de points
-de la température, de la neige et de la pluie.
-'''
-
-
-# Visualisation de la température
 def get_temperature_figure(df: DataFrame):
+    '''
+    Scatter plot des passages selon la température
+    '''
     hover_template_temperature = get_scatter_hover_template(
         'Température', '°C')
     return get_scatterplot_figure(df, 'Mean Temp (°C)', 'Température moyenne (°C)', hover_template_temperature)
 
 
-# Visualisation de la neige
 def get_snow_figure(df: DataFrame):
+    '''
+    Scatter plot des passages selon la quantité de neige
+    '''
     hover_template_neige = get_scatter_hover_template(
         'Quantité de neige', 'cm')
     return get_scatterplot_figure(df, 'Total Snow (cm)', 'Quantité de neige (cm)', hover_template_neige)
 
 
-# Visualisation de la pluie
 def get_rain_figure(df: DataFrame):
+    '''
+    Scatter plot des passages selon la quantité de pluie
+    '''
     hover_template_pluie = get_scatter_hover_template(
         'Quantité de pluie', 'mm')
     return get_scatterplot_figure(df, 'Total Rain (mm)', 'Quantité de pluie (mm)', hover_template_pluie)
 
 
-'''
-La fonction suivante permet de tracer les différents nuages de points.
-On pourra l'utiliser ensuite directement pour choisir la variable à représenter.
-'''
-
-
 def get_scatterplot_figure(df: DataFrame, col: str, xaxis_title: str, hover_template: str):
+    '''
+    Tracer les différents nuages de points selon une variable météorologique
+    '''
     mean_trace = None
 
     # Trace de la moyenne dans le cas de neige ou pluie
@@ -83,14 +80,12 @@ def get_scatterplot_figure(df: DataFrame, col: str, xaxis_title: str, hover_temp
     return fig
 
 
-'''
-Dans le cas de graphique représentant la neige ou la pluie,
-la fonction suivante trace un trait horizontale qui montre la
-moyenne des passages quand la quantité des précipitations est égale à 0.s
-'''
-
-
 def add_mean_trace(df: DataFrame, col: str):
+    '''
+    Dans le cas de graphique représentant la neige ou la pluie,
+    la fonction trace un trait horizontale qui montre la
+    moyenne des passages lorsque la quantité des précipitations est égale à 0.
+    '''
     # Traitement des données et normalisation des valeurs de précipitations égales à 0 par leurs moyenne pour une meilleur lisibilité
     mean_nb_passages_zero = int(df.loc[df[col] == 0, 'nb_passages'].mean())
 
