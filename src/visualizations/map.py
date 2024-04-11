@@ -1,9 +1,9 @@
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-import hover_template
 
 from pandas import DataFrame
+from hover_template import get_map_counters_hover_template, get_map_bike_paths_hover_template
 
 COLORS = ['#E55137', '#1F77B4', '#D247C4', '#EECA48', '#31C0B7', '#37C031']
 
@@ -14,7 +14,7 @@ des pistes cyclables de 2019 à 2024.
 '''
 
 
-def get_map(df: DataFrame, montreal_bike_paths: tuple[list, list]):
+def get_map(df: DataFrame, montreal_bike_paths: tuple[list, list, list]):
     fig = add_bike_counters(df)
     fig = add_bike_paths(fig, montreal_bike_paths)
     return fig
@@ -36,18 +36,14 @@ def add_bike_counters(df: DataFrame):
         color='Annee_implante',
         color_discrete_map=color_discrete_map,
         opacity=0.85,
-        labels=dict(color='Année d\'implantation'),
+        labels=dict(color="Année d'implantation"),
         custom_data=['Annee_implante', 'passages_par_jour'],
     )
 
     fig.update_traces(
         mode='markers',
         marker=dict(sizemin=6),
-        hovertemplate=hover_template.get_map_hover_template(),
-        hoverlabel=dict(
-            bgcolor='white',
-            bordercolor='black',
-        )
+        hovertemplate=get_map_counters_hover_template(),
     )
 
     fig.update_layout(
@@ -69,8 +65,20 @@ def add_bike_counters(df: DataFrame):
 
 
 def add_bike_paths(fig: go.Figure, montreal_bike_paths: tuple[list, list]):
-    bike_paths_trace = go.Scattermapbox(lat=montreal_bike_paths[0], lon=montreal_bike_paths[1], mode='lines', line=dict(
-        color='rgba(18,87,25,0.6)'), hoverinfo='skip', name='Pistes cyclables')
+    bike_paths_trace = go.Scattermapbox(
+        lat=montreal_bike_paths[0],
+        lon=montreal_bike_paths[1],
+        mode='lines',
+        line=dict(color='rgba(18,87,25,0.6)'),
+        hovertemplate=get_map_bike_paths_hover_template(),
+        hoverlabel=dict(
+            bgcolor='white',
+            bordercolor='black',
+        ),
+        name='Pistes cyclables',
+        customdata=montreal_bike_paths[2]
+    )
+
     fig.add_trace(bike_paths_trace)
     update_animation_hover_template(fig.frames, bike_paths_trace)
 
@@ -87,14 +95,9 @@ def update_animation_hover_template(frames: tuple[go.Frame], bike_paths_trace: g
     for frame in frames:
         frame.data += (bike_paths_trace,)
         for data in frame.data:
-            # Ignorer les pistes cyclables pour l'info-bulle
             if data.name == 'Pistes cyclables':
-                continue
-
-            data.hovertemplate = hover_template.get_map_hover_template()
-            data.hoverlabel = dict(
-                bgcolor='white',
-                bordercolor='black',
-            )
+                data.hovertemplate = get_map_bike_paths_hover_template()
+            else:
+                data.hovertemplate = get_map_counters_hover_template()
 
         frame.data = [frame.data[-1]] + list(frame.data[:-1])

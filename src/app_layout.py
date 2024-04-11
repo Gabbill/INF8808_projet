@@ -24,6 +24,7 @@ def get_app_layout(
 
     return html.Div(className='content', children=[
         html.Main(className='page-container', children=[
+            # Raccourcis des sections
             html.Div(
                 className="shortcuts",
                 children=[
@@ -64,6 +65,7 @@ def get_app_layout(
             ),
 
 
+            # Titre et introduction
             html.H1(
                 "Le vélo à Montréal : Évolution des pistes cyclables et tendances d'utilisation"
             ),
@@ -79,6 +81,7 @@ def get_app_layout(
             ),
 
 
+            # Section de la heatmap
             html.H2(
                 children="Évolution temporelle des passages à vélo de 2019 à 2023",
                 id="temporal-evolution"
@@ -115,6 +118,7 @@ def get_app_layout(
                 et 2021."),
 
 
+            # Section des polar bar chart
             html.H2(
                 children="Nombre de passages à vélo horaire par saison",
                 id="hourly-traffic",
@@ -151,6 +155,7 @@ def get_app_layout(
                 sont également plus nombreux l'après-midi."),
 
 
+            # Section de la carte
             html.H2(
                 children="Achalandage des pistes cyclables",
                 id="bike-paths-traffic"
@@ -178,8 +183,17 @@ def get_app_layout(
                 peut indiquer une faible fréquentation de ces pistes cyclables.\
                 Il convient de souligner qu'une grande majorité des compteurs à vélo ont été \
                 implantés en 2019 ou avant. Quelques-uns ont été implantés depuis."),
+            html.P("Par ailleurs, la présence de trois compteurs dans l'Ouest-de-l'Île \
+                est constatée en 2019. Cependant, les deux compteurs sur le chemin \
+                du Bord-du-Lac (à proximité de Dorval) ont été abolis en 2021. En effet, \
+                n'ayant qu'entre 36 et 40 passages par jour en moyenne, la piste cyclable \
+                associée était peu fréquentée par les citoyens. En ce qui \
+                a trait au compteur du pont Jacques-Bizard (à proximité de \
+                l'Île-Bizard–Sainte-Geneviève), ce dernier a été fermé en 2023 pour des raisons \
+                de maintenance."),
 
 
+            # Section des scatter plots
             html.H2(
                 children="Impact des conditions météorologiques",
                 id="weather-condition"
@@ -190,6 +204,7 @@ def get_app_layout(
                 communs aux années 2019 à 2024 afin d'omettre le facteur de l'évolution du \
                 nombre de compteurs."),
 
+            # Scatter plot - température
             html.H3(
                 children="Influence de la température",
                 id="temperature"
@@ -217,6 +232,7 @@ def get_app_layout(
                 par d'autres facteurs tels que la quantité de neige ou la quantité \
                 de pluie, en plus de la température extérieure."),
 
+            # Scatter plot - neige
             html.H3(
                 "Influence de la quantité de neige tombée",
                 id="snow"
@@ -261,6 +277,7 @@ def get_app_layout(
                 aucune neige tombante, il est possible de conclure que la neige tombante \
                 a une forte influence sur le nombre de passages à vélo à Montréal."),
 
+            # Scatter plot - pluie
             html.H3(
                 "Influence de la quantité de pluie tombée",
                 id="rain"

@@ -5,7 +5,7 @@ html {
 header,
 main {
   font-family: "Roboto";
-  margin: 0 15em;
+  margin: 0 15vw;
   background-color: white;
 }
 
@@ -49,13 +49,14 @@ span {
 .polar-bar-charts-container .dash-graph {
   flex: 0 0 50%;
   height: 50%;
+  width: 50%;
 }
 
 .shortcuts {
   position: fixed;
   top: 0;
   left: 0;
-  width: 13em;
+  width: 13vw;
   padding: 0.5em;
 }
 

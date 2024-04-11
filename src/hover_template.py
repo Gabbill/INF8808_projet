@@ -22,13 +22,24 @@ def get_polar_chart_hover_template():
 
 
 '''
-La fonciton suivante fait référence à l'info-bulle de la carte.
+La fonction suivante fait référence à l'info-bulle des compteurs de la carte.
 '''
 
 
-def get_map_hover_template():
-    hover_template = "<b style='color: rgba(18,87,25,0.8);'>Année d'implantation : </b><span>%{customdata[0]}</span><br>"
-    hover_template += "<b style='color: rgba(18,87,25,0.8);'>Nombre de passages par jour : </b><span>%{customdata[1]:.0f}</span><br>"
+def get_map_counters_hover_template():
+    hover_template = "<b style='color: #ffffff;'>Année d'implantation : </b><span style='color: #ffffff;>%{customdata[0]}</span><br>"
+    hover_template += "<b style='color: #ffffff;'>Nombre de passages par jour : </b><span style='color: #ffffff;>%{customdata[1]:.0f}</span><br>"
+    hover_template += "<extra></extra>"
+    return hover_template
+
+
+'''
+La fonction suivante fait référence à l'info-bulle des pistes cyclables de la carte.
+'''
+
+
+def get_map_bike_paths_hover_template():
+    hover_template = "<b style='color: rgba(18,87,25,0.8);'>Arrondissement : </b><span>%{customdata}</span>"
     hover_template += "<extra></extra>"
     return hover_template
 
