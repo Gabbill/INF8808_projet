@@ -141,24 +141,25 @@ def get_yearly_counters_count(bike_counts_df):
     yearly_count = pd.merge(
         yearly_count, counters_locations_df, on='id_compteur', how='inner')
 
-    years = counters_locations_df['Année'].unique()
-    for counter_id in counters_locations_df['id_compteur'].unique():
-        counter = counters_locations_df[counters_locations_df['id_compteur'] == counter_id]
+    years = yearly_count['Année'].unique()
+    for counter_id in yearly_count['id_compteur'].unique():
+        counter = yearly_count[yearly_count['id_compteur'] == counter_id]
         for year in years:
             if year not in counter['Année'].values:
-                counters_locations_df.loc[len(counters_locations_df)] = [counter_id, counter['longitude'].values[0],
-                                                                         counter['latitude'].values[0], year, 0, counter['Annee_implante'].values[0]]
+                yearly_count.loc[len(yearly_count)] = [counter_id, counter['longitude'].values[0],
+                                                       counter['latitude'].values[0], year, 0, counter['Annee_implante'].values[0]]
 
     # Nombre de passages par jour
-    counters_locations_df['passages_par_jour'] = counters_locations_df['nb_passages'] / 365
+    yearly_count['passages_par_jour'] = yearly_count['nb_passages'] / 365
 
     # Le nombre de passage doit être à 0 si l'année d'implantation est supérieure à l'année de comptage
-    counters_locations_df.loc[counters_locations_df['Année']
-                              < counters_locations_df['Annee_implante'].astype(int), 'nb_passages'] = 0
+    yearly_count.loc[yearly_count['Année']
+                     < yearly_count['Annee_implante'].astype(int), 'nb_passages'] = 0
 
-    # Enlever les enregistrements de l'année 2024
-    counters_locations_df = counters_locations_df[counters_locations_df['Année'] < 2024]
-    return counters_locations_df
+    # Retrait des enregistrements de l'année 2024
+    yearly_count = yearly_count[yearly_count['Année'] < 2024]
+
+    return yearly_count
 
 
 def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
