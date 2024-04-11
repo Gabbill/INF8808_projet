@@ -125,6 +125,12 @@ def get_yearly_counters_count(bike_counts_df):
 
     counters_locations_df['passages_par_jour'] = counters_locations_df['nb_passages'] / 365
 
+    # Le nombre de passage doit être à 0 si l'année d'implantation est supérieure à l'année de comptage
+    counters_locations_df.loc[counters_locations_df['Année']
+                              < counters_locations_df['Annee_implante'].astype(int), 'nb_passages'] = 0
+
+    # Enlever les enregistrements de l'année 2024
+    counters_locations_df = counters_locations_df[counters_locations_df['Année'] < 2024]
     return counters_locations_df
 
 
