@@ -30,6 +30,8 @@ def load_montreal_bike_paths():
     montreal_bike_paths = gpd.read_file('assets/data/reseau_cyclable.geojson')
     lats = []
     lons = []
+    names = []
+
     for feature, name in zip(montreal_bike_paths.geometry, montreal_bike_paths.NOM_ARR_VILLE_DESC):
         if not isinstance(feature, shapely.geometry.linestring.LineString):
             continue
@@ -41,7 +43,9 @@ def load_montreal_bike_paths():
             # None to create a gap in the line
             lats.extend(y.tolist() + [None])
             lons.extend(x.tolist() + [None])
-    return lats, lons
+            names.extend([name] * (len(x) + 1))
+
+    return lats, lons, names
 
 
 # Combinaison des diverses données de comptages de vélos
