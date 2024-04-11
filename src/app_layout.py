@@ -185,7 +185,9 @@ def get_app_layout(
                 implantés en 2019 ou avant. Quelques-uns ont été implantés depuis."),
             html.P("Par ailleurs, la présence de trois compteurs dans l'Ouest-de-l'Île \
                 est constatée en 2019. Cependant, les deux compteurs sur le chemin \
-                du Bord-du-Lac (à proximité de Dorval) ont été abolis en 2021. En ce qui \
+                du Bord-du-Lac (à proximité de Dorval) ont été abolis en 2021. En effet, \
+                n'ayant qu'entre 36 et 40 passages par jour en moyenne, la piste cyclable \
+                associée était peu fréquentée par les citoyens. En ce qui \
                 a trait au compteur du pont Jacques-Bizard (à proximité de \
                 l'Île-Bizard–Sainte-Geneviève), ce dernier a été fermé en 2023 pour des raisons \
                 de maintenance."),

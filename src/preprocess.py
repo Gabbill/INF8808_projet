@@ -36,14 +36,11 @@ def load_montreal_bike_paths():
         if not isinstance(feature, shapely.geometry.linestring.LineString):
             continue
 
-        linestrings = [feature]
-
-        for linestring in linestrings:
-            x, y = linestring.xy
-            # None to create a gap in the line
-            lats.extend(y.tolist() + [None])
-            lons.extend(x.tolist() + [None])
-            names.extend([name] * (len(x) + 1))
+        x, y = feature.xy
+        # None pour créer un écart dans la ligne
+        lats.extend(y.tolist() + [None])
+        lons.extend(x.tolist() + [None])
+        names.extend([name] * (len(x) + 1))
 
     return lats, lons, names
 
@@ -103,12 +100,13 @@ def get_hourly_bike_count(bike_counts_df):
 
 
 # Visualisation 3 : Carte des compteurs et des pistes cyclables
-# Calcul du nombre annuel de passages de vélos par compteur et intégration des données d'emplacement
+# Calcul du nombre annuel de passages de vélos par compteur et intégration des années d'implantation
 def get_yearly_counters_count(bike_counts_df):
     bike_counts_df['Année'] = pd.to_datetime(bike_counts_df['date']).dt.year
     yearly_count = bike_counts_df.groupby(['id_compteur', 'longitude', 'latitude', 'Année'])[
         'nb_passages'].sum().reset_index()
 
+    # Modification de l'année implantée à 2019 si elle est inférieure à 2019
     counters_locations_df = load_counters_locations()[['ID', 'Annee_implante']]
     counters_locations_df.rename(columns={'ID': 'id_compteur'}, inplace=True)
     counters_locations_df.loc[counters_locations_df['Annee_implante']
@@ -120,13 +118,14 @@ def get_yearly_counters_count(bike_counts_df):
         yearly_count, counters_locations_df, on='id_compteur', how='inner')
 
     years = counters_locations_df['Année'].unique()
-    for compteur_id in counters_locations_df['id_compteur'].unique():
-        compteurs = counters_locations_df[counters_locations_df['id_compteur'] == compteur_id]
+    for counter_id in counters_locations_df['id_compteur'].unique():
+        counter = counters_locations_df[counters_locations_df['id_compteur'] == counter_id]
         for year in years:
-            if year not in compteurs['Année'].values:
-                counters_locations_df.loc[len(counters_locations_df)] = [compteur_id, compteurs['longitude'].values[0],
-                                                                         compteurs['latitude'].values[0], year, 0, compteurs['Annee_implante'].values[0]]
+            if year not in counter['Année'].values:
+                counters_locations_df.loc[len(counters_locations_df)] = [counter_id, counter['longitude'].values[0],
+                                                                         counter['latitude'].values[0], year, 0, counter['Annee_implante'].values[0]]
 
+    # Nombre de passages par jour
     counters_locations_df['passages_par_jour'] = counters_locations_df['nb_passages'] / 365
 
     return counters_locations_df
