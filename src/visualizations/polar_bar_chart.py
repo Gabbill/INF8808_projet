@@ -3,13 +3,12 @@ import plotly.graph_objects as go
 from hover_template import get_polar_chart_hover_template
 from pandas import DataFrame
 
-'''
-La fonction suivante permet d'obtenir un polar bar chart représentant l'achalandage moyen
-d'utilisation de vélo par heure au cours des quatre saisons à Montréal.
-'''
-
 
 def get_seasonal_polar_chart(df: DataFrame, season: str):
+    '''
+    Obtention d'un polar bar chart représentant l'achalandage des compteurs à vélo
+    par heure au cours des quatre saisons à Montréal.
+    '''
     # Récupération des données liées à la saison
     seasonal_data = df[df['season'] == season]
 

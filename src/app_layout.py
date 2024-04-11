@@ -14,6 +14,9 @@ def get_app_layout(
     snow_scatter_plot: Figure,
     rain_scatter_plot: Figure
 ):
+    '''
+    Définit la mise en page du site
+    '''
 
     figure_config = dict(
         showTips=False,

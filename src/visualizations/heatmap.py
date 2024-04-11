@@ -1,4 +1,4 @@
-# Inspired by : https://github.com/brunorosilva/plotly-calplot/
+# Inspiré par : https://github.com/brunorosilva/plotly-calplot/
 
 import numpy as np
 import plotly.graph_objects as go
@@ -9,19 +9,16 @@ from hover_template import heatmap_hover_template
 from pandas import DataFrame
 
 
-# Définition des constantes utilisées
 YEARS = [2019, 2020, 2021, 2022, 2023]
 WEEK_DAYS_NAMES = ['Lundi', 'Mardi', 'Mercredi',
                    'Jeudi', 'Vendredi', 'Samedi', 'Dimanche']
 MONTH_POSITIONS = np.linspace(1.5, 50, 12)
 
 
-'''
-La fonction suivante permet de créer la Heatmap de 2019 à 2023 
-'''
-
-
 def get_heatmap(df: DataFrame):
+    '''
+    Création de la heatmap de 2019 à 2023
+    '''
     years_as_strings = [str(year) for year in YEARS]
     nb_years = len(YEARS)
 
@@ -42,14 +39,10 @@ def get_heatmap(df: DataFrame):
     return fig
 
 
-'''
-Les fonctions suivantes permettent de générer les données nécessaires pour heatmap associée à une année.
-Elles permettent notamment d'ajouter les séparateurs de mois, les info-bulles ainsi que l'échelle de couleur.
-'''
-
-
-# Création d'une heatmap pour chaque année donnée
 def year_heatmap(year_df: DataFrame, fig: go.Figure, year_index: int):
+    '''
+    Création d'une heatmap pour une année donnée
+    '''
     week_days = [date.weekday() for date in year_df['date']]
     week_numbers = year_df['date'].dt.strftime('%W').astype(int).tolist()
 
@@ -72,8 +65,10 @@ def year_heatmap(year_df: DataFrame, fig: go.Figure, year_index: int):
     add_year_heatmap(fig, year_heatmap, year_index)
 
 
-# Info-bulles de chaque jour de l'année
 def get_hover_info(year_df: DataFrame, week_days: list[str]):
+    '''
+    Info-bulle pour chaque journée de l'année
+    '''
     return [heatmap_hover_template(
             WEEK_DAYS_NAMES[week_days[index % 7]],
             row['formatted_date'],
@@ -81,8 +76,10 @@ def get_hover_info(year_df: DataFrame, week_days: list[str]):
             ) for index, row in year_df.iterrows()]
 
 
-# Ajout de séparateurs de mois dans le graphique
 def add_month_separators(year_heatmap: list[go.Heatmap], year_df: DataFrame, week_days: list[str], week_numbers: list[int]):
+    '''
+    Ajout de séparateurs de mois dans le graphique
+    '''
     month_lines = dict(
         mode='lines',
         line=dict(color='#000000', width=2),
@@ -105,8 +102,10 @@ def add_month_separators(year_heatmap: list[go.Heatmap], year_df: DataFrame, wee
             ]
 
 
-# Ajout d'une heatmap annuelle à la figure
 def add_year_heatmap(fig: go.Figure, year_heatmap: list[go.Heatmap, go.Scatter], year_index: int):
+    '''
+    Ajout d'une heatmap d'une année particulière à la figure
+    '''
     fig.add_traces(
         year_heatmap,
         rows=[(year_index + 1)] * len(year_heatmap),
@@ -114,8 +113,10 @@ def add_year_heatmap(fig: go.Figure, year_heatmap: list[go.Heatmap, go.Scatter],
     )
 
 
-# Définition de l'échelle de couleur de la heatmap
 def add_color_scale(fig: go.Figure, min_value: int, max_value: int):
+    '''
+    Définition de l'échelle de couleur de la heatmap
+    '''
     fig.update_traces(
         zmin=min_value,
         zmax=max_value,
@@ -124,8 +125,10 @@ def add_color_scale(fig: go.Figure, min_value: int, max_value: int):
     )
 
 
-# Mise à jour de la mise en page de la figure
 def update_layout(fig: go.Figure, nb_years: int):
+    '''
+    Mise à jour de la mise en page de la figure
+    '''
     fig_height = nb_years * 150
     french_months = [month.capitalize()
                      for month in utils.MONTH_NAMES.values()]

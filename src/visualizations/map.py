@@ -8,19 +8,20 @@ from hover_template import get_map_counters_hover_template, get_map_bike_paths_h
 COLORS = ['#E55137', '#1F77B4', '#D247C4', '#EECA48', '#31C0B7', '#37C031']
 
 
-'''
-La fonction suivante permet de créer la carte des compteurs de vélo ainsi que
-des pistes cyclables de 2019 à 2024.  
-'''
-
-
 def get_map(df: DataFrame, montreal_bike_paths: tuple[list, list, list]):
+    '''
+    Obtention de la carte avec les compteurs à vélo ainsi que les pistes cyclables
+    de 2019 à 2023
+    '''
     fig = add_bike_counters(df)
     fig = add_bike_paths(fig, montreal_bike_paths)
     return fig
 
 
 def add_bike_counters(df: DataFrame):
+    '''
+    Ajout des compteurs à vélo sur la carte
+    '''
     years = df['Année'].unique()
     color_discrete_map = {
         str(years[i]): COLORS[i] for i in range(len(years))
@@ -65,6 +66,9 @@ def add_bike_counters(df: DataFrame):
 
 
 def add_bike_paths(fig: go.Figure, montreal_bike_paths: tuple[list, list]):
+    '''
+    Ajout des pistes cyclables sur la carte
+    '''
     bike_paths_trace = go.Scattermapbox(
         lat=montreal_bike_paths[0],
         lon=montreal_bike_paths[1],
@@ -92,6 +96,9 @@ def add_bike_paths(fig: go.Figure, montreal_bike_paths: tuple[list, list]):
 
 
 def update_animation_hover_template(frames: tuple[go.Frame], bike_paths_trace: go.Scattermapbox):
+    '''
+    Définit l'info-bulle pour chaque frame de l'animation
+    '''
     for frame in frames:
         frame.data += (bike_paths_trace,)
         for data in frame.data:
