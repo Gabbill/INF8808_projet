@@ -21,8 +21,8 @@ def get_map_counters_hover_template():
     '''
     Info-bulle des compteurs à vélo de la carte
     '''
-    hover_template = "<b style='color: #ffffff;'>Année d'implantation : </b><span style='color: #ffffff;>%{customdata[0]}</span><br>"
-    hover_template += "<b style='color: #ffffff;'>Nombre de passages par jour : </b><span style='color: #ffffff;>%{customdata[1]:.0f}</span><br>"
+    hover_template = "<b>Année d'implantation : </b><span>%{customdata[0]}</span><br>"
+    hover_template += "<b>Nombre de passages par jour : </b><span>%{customdata[1]:.0f}</span><br>"
     hover_template += "<extra></extra>"
     return hover_template
 
