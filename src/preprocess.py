@@ -51,14 +51,14 @@ def load_montreal_bike_paths():
     return lats, lons, names
 
 
-def get_bike_counts_df(bike_counts_data_list):
+def get_bike_counts_df(bike_counts_data_list: list[pd.DataFrame]):
     '''
     Combinaison des diverses données de comptages de vélos
     '''
     return pd.concat(bike_counts_data_list, ignore_index=True)
 
 
-def get_common_counters_2019_to_2024(bike_counts_data_list):
+def get_common_counters_2019_to_2024(bike_counts_data_list: list[pd.DataFrame]):
     '''
     Données des compteurs de vélos communs de 2019 à 2024
     '''
@@ -71,7 +71,7 @@ def get_common_counters_2019_to_2024(bike_counts_data_list):
 # à chaque visualisation
 
 
-def get_daily_bike_count(bike_counts_df):
+def get_daily_bike_count(bike_counts_df: pd.DataFrame):
     '''
     Visualisation 1 : Heatmap
     Nombre quotidien de passages à vélo
@@ -86,7 +86,7 @@ def get_daily_bike_count(bike_counts_df):
     return df
 
 
-def get_hourly_bike_count(bike_counts_df):
+def get_hourly_bike_count(bike_counts_df: pd.DataFrame):
     '''
     Visualisation 2 : Polar bar chart
     Nombre de passages horaire pour chaque saison
@@ -105,7 +105,7 @@ def get_hourly_bike_count(bike_counts_df):
     return df
 
 
-def get_season(month):
+def get_season(month: int):
     '''
     Détermination de la saison en fonction du mois
     '''
@@ -119,7 +119,7 @@ def get_season(month):
         return 'Automne'
 
 
-def get_yearly_counters_count(bike_counts_df):
+def get_yearly_counters_count(bike_counts_df: pd.DataFrame):
     '''
     Visualisation 3 : Carte des compteurs et des pistes cyclables
     Nombre annuel de passages à vélo par compteur et l'emplacement des compteurs
@@ -162,7 +162,7 @@ def get_yearly_counters_count(bike_counts_df):
     return yearly_count
 
 
-def get_daily_bike_count_with_weather(bike_counts_data_list, bike_counts_df):
+def get_daily_bike_count_with_weather(bike_counts_data_list: list[pd.DataFrame], bike_counts_df: pd.DataFrame):
     '''
     Visualisation 4 : Scatter plot
     Traitement et fusion des nombres de passages quotidiens avec les données météorologiques
