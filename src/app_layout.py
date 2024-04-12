@@ -63,9 +63,14 @@ def get_app_layout(
                                 ])
                             ])
                         ]),
+                        html.Li(children=[
+                            html.A("Méthodologie",
+                                href="#methodology")
+                        ]),
                     ])
                 ]
             ),
+
 
 
             # Titre et introduction
@@ -82,6 +87,7 @@ def get_app_layout(
                 comprendre l'évolution temporelle et géographique de cette tendance ainsi que les facteurs qui y contribuent.",
                 className="introduction"
             ),
+
 
 
             # Section de la heatmap
@@ -121,6 +127,7 @@ def get_app_layout(
                 et 2021."),
 
 
+
             # Section des polar bar chart
             html.H2(
                 children="Nombre de passages à vélo horaire par saison",
@@ -156,6 +163,7 @@ def get_app_layout(
                 la journée est observé, alors qu'en hiver, l'obscurité invite \
                 les citoyens à ranger les vélos plus tôt. Les passages à vélo \
                 sont également plus nombreux l'après-midi."),
+
 
 
             # Section de la carte
@@ -194,6 +202,7 @@ def get_app_layout(
                 a trait au compteur du pont Jacques-Bizard (à proximité de \
                 l'Île-Bizard–Sainte-Geneviève), ce dernier a été fermé en 2023 pour des raisons \
                 de maintenance."),
+
 
 
             # Section des scatter plots
@@ -303,5 +312,55 @@ def get_app_layout(
                 événement particulier à Montréal pouvant justifier ce fort achalandage se \
                 présente cette journée, une température moyenne assez chaude de \
                 19,6°C est observée."),
+
+
+
+            # Section sur la méthodologie
+            html.H2(
+                "Méthodologie",
+                id="methodology"
+            ),
+            html.P(children=[
+                "Les données comptant les passages sur les pistes cyclables sont \
+                fournies par le Service de l’urbanisme et de la mobilité de la \
+                ville de Montréal. Elles ont été récoltées par des boucles \
+                magnétiques présentes sur les pistes cyclables. Toutefois, elles \
+                ne détectent pas les vélos en carbone; ceux-ci sont donc exclus des \
+                totaux. Les données de 2019 à 2024 sont comptabilisées aux 15 minutes \
+                pour chacun des compteurs actifs. Elles sont disponibles à ",
+                html.A(
+                    "ce lien-ci", href="https://ouvert.canada.ca/data/fr/dataset/f170fecc-18db-44bc-b4fe-5b0b6d2c7297"),
+                ". Ce dernier comporte également les données sur les localisations des divers compteurs \
+                à vélo de Montréal."
+            ]),
+            html.P("À partir de ces données, plusieurs calculs ont été effectués. \
+                En effet, étant donné une comptabilisation des données aux 15 minutes, \
+                les nombres de passages ont dû être additionnés dans le but d’obtenir \
+                le nombre quotidien de passages à vélo, utilisé pour examiner de près \
+                l’évolution temporelle des passages à vélo de 2019 à 2023 ainsi que \
+                l’impact des conditions météorologiques sur l’achalandage des pistes \
+                cyclables. Par ailleurs, les nombres de passages ont également été \
+                additionnés pour chaque compteur afin d’établir le nombre annuel de \
+                passages à vélo par compteur, utilisé pour déterminer l’achalandage \
+                des pistes cyclables. Enfin, la moyenne des passages à vélo selon la \
+                saison ainsi que l’heure a été calculée pour déterminer le nombre de \
+                passages à vélo horaire par saison."),
+            html.P(children=[
+                "De plus, les données des pistes cyclables, disponibles à ",
+                html.A(
+                    "ce lien-ci", href="https://www.donneesquebec.ca/recherche/dataset/vmtl-pistes-cyclables"),
+                ", sont fournies par la Ville de Montréal et sont utiles \
+                pour l’ajout des pistes cyclables sur la carte qui est utilisée pour \
+                déterminer l’achalandage des pistes cyclables au fil des années. "
+            ]),
+            html.P(children=[
+                "Les données météorologiques quotidiennes à Montréal depuis 2019 \
+                sont également utilisées, notamment pour évaluer l’impact des \
+                conditions météorologiques sur les passages à vélo. Elles fournies \
+                par le Gouvernement du Canada et sont disponibles à ",
+                html.A("ce lien-ci", href="https://climate.weather.gc.ca/climate_data/daily_data_e.html?StationID=51157&timeframe=2&StartYear=1840&EndYear=2024&Day=16&Year=2019&Month=1"),
+                "."
+            ]),
+
         ])
     ])
