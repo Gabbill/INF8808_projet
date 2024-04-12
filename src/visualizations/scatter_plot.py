@@ -62,6 +62,7 @@ def get_scatterplot_figure(df: DataFrame, col: str, xaxis_title: str, hover_temp
         yaxis=axis_layout,
         plot_bgcolor='white',
         hoverlabel=dict(bgcolor='white'),
+        dragmode=False
     )
 
     fig.update_traces(marker_color='#1f77b4', hovertemplate=hover_template)

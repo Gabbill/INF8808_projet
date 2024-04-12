@@ -212,9 +212,6 @@ def get_app_layout(
                 children="Influence de la température",
                 id="temperature"
             ),
-            html.Span(children=html.I("Pour zoomer dans une zone particulière du graphique, cliquez, \
-                faites glisser votre curseur et relâchez. Pour dézoomer, double-\
-                cliquez n'importe où sur le graphique.")),
             dcc.Graph(
                 figure=temperature_scatter_plot,
                 id='temperature-scatter-plot',
@@ -240,9 +237,6 @@ def get_app_layout(
                 "Influence de la quantité de neige tombée",
                 id="snow"
             ),
-            html.Span(children=html.I("Pour zoomer dans une zone particulière du graphique, cliquez, \
-                faites glisser votre curseur et relâchez. Pour dézoomer, double-\
-                cliquez n'importe où sur le graphique.")),
             dcc.Graph(
                 figure=snow_scatter_plot,
                 id='snow-scatter-plot',
@@ -285,9 +279,6 @@ def get_app_layout(
                 "Influence de la quantité de pluie tombée",
                 id="rain"
             ),
-            html.Span(children=html.I("Pour zoomer dans une zone particulière du graphique, cliquez, \
-                faites glisser votre curseur et relâchez. Pour dézoomer, double-\
-                cliquez n'importe où sur le graphique.")),
             dcc.Graph(
                 figure=rain_scatter_plot,
                 id='rain-scatter-plot',
