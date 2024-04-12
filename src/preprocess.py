@@ -98,7 +98,7 @@ def get_hourly_bike_count(bike_counts_df):
 
     # Nombre de passages par heure pour chaque saison
     df = bike_counts_df.groupby(['heure', 'season'])[
-        'nb_passages'].sum().reset_index()
+        'nb_passages'].mean().reset_index()
     df['heure'] = pd.to_datetime(df['heure']).dt.strftime('%Hh')
     df = df.groupby(['heure', 'season'], as_index=False)['nb_passages'].sum()
 
