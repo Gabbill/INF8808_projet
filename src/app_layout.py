@@ -240,6 +240,19 @@ def get_app_layout(
                 pour les températures plus chaudes, les passages sont influencés \
                 par d'autres facteurs tels que la quantité de neige ou la quantité \
                 de pluie, en plus de la température extérieure."),
+            html.P("Il est important de souligner la présence de quatre valeurs \
+                aberrantes les 3, 5, 6 et 7 février 2023. En effet, ces dates présentent \
+                des températures extérieures négatives, c’est-à-dire inférieures à 0°C, \
+                accompagnées d’une forte présence des pistes cyclables. Une température de \
+                -21,2°C ainsi qu’un achalandage de 28 749 passages à vélo sont observés pour \
+                la journée du 3 février. Concernant le 5 février, la température était de \
+                -12,8°C avec  18 861 passages à vélo. Le lendemain, soit le 6 février, une \
+                température de -8,6°C est plutôt constatée avec 32 931 passages. Enfin, le 7 \
+                février compte 33 927 passages à vélo ainsi qu’une température extérieure de \
+                -7,6°C. Ces dates, étant très proches dans le temps, suggèrent un événement majeur \
+                à Montréal. Effectivement, en 2023, le festival de musique électronique Igloofest \
+                s’est tenu du 19 janvier au 11 février, justifiant ainsi une fréquence élevée des \
+                pistes cyclables malgré une température extérieure froide."),
 
             # Scatter plot - neige
             html.H3(
@@ -270,8 +283,8 @@ def get_app_layout(
                 température assez commune lors du mois de novembre. Le temps \
                 ensoleillé lors de cette journée pourrait cependant expliquer une \
                 importante fréquentation des pistes cyclables."),
-            html.P("Ensuite, en 2023, le festival de musique électronique Igloofest\
-                a eu lieu du 19 janvier au 11 février. Cet événement pourrait \
+            html.P("Ensuite, le festival de musique électronique Igloofest \
+                ayant lieu du 19 janvier au 11 février 2023 pourrait à nouveau \
                 expliquer un fort achalandage des voies cyclables lors du mardi 7 \
                 février, malgré une présence de 2,2 cm de neige. Néanmoins, il convient \
                 de souligner qu'une température moyenne de -7,6°C est observée au \
@@ -356,7 +369,7 @@ def get_app_layout(
             html.P(children=[
                 "Les données météorologiques quotidiennes à Montréal depuis 2019 \
                 sont également utilisées, notamment pour évaluer l’impact des \
-                conditions météorologiques sur les passages à vélo. Elles fournies \
+                conditions météorologiques sur les passages à vélo. Elles sont fournies \
                 par le Gouvernement du Canada et sont disponibles à ",
                 html.A("ce lien-ci", href="https://climate.weather.gc.ca/climate_data/daily_data_e.html?StationID=51157&timeframe=2&StartYear=1840&EndYear=2024&Day=16&Year=2019&Month=1"),
                 "."
