@@ -96,7 +96,7 @@ def get_app_layout(
                 id="temporal-evolution"
             ),
             html.P("La présente section aborde l'évolution de l'achalandage des pistes \
-                cyclables de janvier 2019 à janvier 2024."),
+                cyclables de janvier 2019 à décembre 2023."),
             dcc.Graph(
                 figure=heatmap,
                 id='heatmap',
