@@ -12,7 +12,7 @@ def get_polar_chart_hover_template():
     Info-bulle des polar bar charts
     '''
     hover_template = "<b style='color: #1f77b4;'>Heure : </b><span>%{theta}</span><br>"
-    hover_template += "<b style='color: #1f77b4;'>Nombre de passages : </b><span>%{r:.0f}</span>"
+    hover_template += "<b style='color: #1f77b4;'>Nombre de passages moyen : </b><span>%{r:.0f}</span>"
     hover_template += "<extra></extra>"
     return hover_template
 
