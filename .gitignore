@@ -2,3 +2,6 @@
 *.zip
 src/__pycache__
 src/visualizations/__pycache__/
+/test/
+/build_venv/
+/prod_venv/
